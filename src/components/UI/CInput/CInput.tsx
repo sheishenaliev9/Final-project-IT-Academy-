@@ -1,14 +1,11 @@
-import React from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react';
 import styles from './CInput.module.scss';
 
-interface ICInputProps {
-    id?: string;
-    type: string;
-    placeholder?: string;
+interface ICInputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
-export const CInput: React.FC<ICInputProps> = ({ ...props }) => {
+export const CInput = forwardRef<HTMLInputElement, ICInputProps>((props, ref) => {
   return (
-    <input className={styles.customInput} {...props} />
-  )
-}
+    <input className={styles.customInput} ref={ref} {...props} />
+  );
+});

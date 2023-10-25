@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CButton, CInput } from "../../components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import styles from "./Register.module.scss";
+import { registerUser } from "../../store";
+import { IUserType } from "../../types/index.type";
 
 export const Register: React.FC = () => {
-  const { register, handleSubmit } = useForm();
+  const dispatch = useAppDispatch();
+  const { userInfo } = useAppSelector((state) => state.users);
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<IUserType>();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      // navigate("/");
+    }
+  }, [userInfo]);
+
+  const onSubmit = (values: IUserType) => dispatch(registerUser(values));
 
   return (
     <div className={styles.register}>
-      <form className={styles.register__form}>
+      <form className={styles.register__form} onSubmit={handleSubmit(onSubmit)}>
         <h2>Регистрация</h2>
         <label htmlFor="name">
           <p>Name</p>
@@ -17,7 +31,7 @@ export const Register: React.FC = () => {
             id="name"
             type="text"
             placeholder="Enter your name"
-            {...register("name", { required: true })}
+            {...register("username", { required: true })}
           />
         </label>
 
@@ -31,10 +45,10 @@ export const Register: React.FC = () => {
           />
         </label>
 
-        <label htmlFor="phone">
+        <label htmlFor="number">
           <p>Phone</p>
           <CInput
-            id="phone"
+            id="number"
             type="number"
             placeholder="Enter your phone"
             {...register("number", { required: true })}
@@ -47,11 +61,11 @@ export const Register: React.FC = () => {
             id="password"
             type="password"
             placeholder="Enter your password"
-            {...register("number", { required: true })}
+            {...register("password")}
           />
         </label>
 
-        <CButton>Зарегистрироваться</CButton>
+        <CButton type="submit">Зарегистрироваться</CButton>
 
         <p className={styles.register__form__subtitle}>
           Если у вас уже имеется аккаунт: <Link to="/login">Войти</Link>

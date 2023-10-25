@@ -3,6 +3,7 @@ import styles from './CButton.module.scss';
 
 interface ICButtonProps {
     children: React.ReactNode,
+    type?: "submit",
     onClick?: (e: FormEvent<HTMLButtonElement>) => void;
 }
 
