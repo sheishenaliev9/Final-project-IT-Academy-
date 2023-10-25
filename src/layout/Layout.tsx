@@ -5,9 +5,7 @@ export const Layout: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="container">
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
     </div>
   );
