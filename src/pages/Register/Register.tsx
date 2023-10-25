@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CButton, CInput } from "../../components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import styles from "./Register.module.scss";
@@ -10,7 +10,7 @@ import { IUserType } from "../../types/index.type";
 export const Register: React.FC = () => {
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.users);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IUserType>();
 
   useEffect(() => {

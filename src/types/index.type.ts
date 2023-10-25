@@ -1,13 +1,13 @@
 export interface IUserType {
   username: string;
-  email: string;
+  email?: string;
   password: string;
-  number: string;
+  number?: string;
 }
 
 export type Inputs = {
     username: string;
     password: string;
-    email: string;
-    number: number;
+    email?: string;
+    number?: number;
   };
