@@ -31,7 +31,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "loginUser",
-  async (user: IUserType, { dispatch }) => {
+  async (user: IUserType) => {
     try {
       const { data } = await axios.post(
         `https://restaurant--ormonov31261.repl.co/api/v1/user_auth/token/`,
@@ -44,7 +44,6 @@ export const loginUser = createAsyncThunk(
       );
 
       localStorage.setItem("token", data.access);
-      dispatch(getUserInfo());
       console.log(data);
       return data;
     } catch (error) {
@@ -67,7 +66,7 @@ export const getUserInfo = createAsyncThunk(
         },
       });
       console.log(data);
-      return data;
+      return data.person_data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

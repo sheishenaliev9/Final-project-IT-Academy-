@@ -1,18 +1,25 @@
 import React from "react";
 import { CButton, CInput } from "../../components";
 import styles from "./Login.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { loginUser } from "../../store";
 import { IUserType } from "../../types/index.type";
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch();
-  // const { userInfo } = useAppSelector((state) => state.users);
+  const { userInfo } = useAppSelector((state) => state.users);
   const { register, handleSubmit } = useForm<IUserType>();
+  const navigate = useNavigate();
 
-  const onSubmit = (values: IUserType) => dispatch(loginUser(values));
+  const onSubmit = (values: IUserType) => {
+    dispatch(loginUser(values));
+
+    if (userInfo) {
+      navigate(`/profile`);
+    }
+  };
   return (
     <div className={styles.login}>
       <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>

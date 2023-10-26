@@ -6,8 +6,17 @@ export interface IUserType {
 }
 
 export type Inputs = {
-    username: string;
-    password: string;
-    email?: string;
-    number?: number;
-  };
+  username: string;
+  password: string;
+  email?: string;
+  number?: number;
+};
+
+export interface IPersonType {
+  email: string | null;
+  id: number;
+  name: string;
+  number: string;
+  photo: string | null;
+  user: number;
+}

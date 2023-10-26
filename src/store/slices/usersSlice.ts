@@ -1,13 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IUserType } from "../../types/index.type";
+import { IPersonType } from "../../types/index.type";
 import { getUserInfo, registerUser } from "../actions";
 
 interface IUserState {
-  userInfo: IUserType | null;
+  userInfo: IPersonType;
 }
 
 const initialState: IUserState = {
-  userInfo: {} as IUserType | null,
+  userInfo: {} as IPersonType,
 };
 
 export const usersSlice = createSlice({
@@ -15,11 +15,17 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [registerUser.fulfilled.type]: (state, action: PayloadAction<IUserType>) => {
+    [registerUser.fulfilled.type]: (
+      state,
+      action: PayloadAction<IPersonType>
+    ) => {
       state.userInfo = action.payload;
     },
-    [getUserInfo.fulfilled.type]: (state, action: PayloadAction<IUserType>) => {
+    [getUserInfo.fulfilled.type]: (
+      state,
+      action: PayloadAction<IPersonType>
+    ) => {
       state.userInfo = action.payload;
-    } 
+    },
   },
 });
