@@ -20,3 +20,15 @@ export interface IPersonType {
   photo: string | null;
   user: number;
 }
+
+// ========================
+// Dish
+
+export interface IDishType {
+  id: number;
+  name: string;
+  photo: string;
+  price: number;
+  made_of: string;
+  type: number;
+}

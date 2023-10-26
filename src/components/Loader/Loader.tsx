@@ -1,6 +1,7 @@
+import React from "react";
 import { MutatingDots } from "react-loader-spinner";
 
-export const Loader = () => {
+export const Loader: React.FC = () => {
   return (
     <div className="loader">
       <MutatingDots
