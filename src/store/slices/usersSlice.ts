@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IPersonType } from "../../types/index.type";
-import { getUserInfo, registerUser } from "../actions";
+import { editPerson, getUserInfo, registerUser } from "../actions";
 
 interface IUserState {
   userInfo: IPersonType;
@@ -22,6 +22,12 @@ export const usersSlice = createSlice({
       state.userInfo = action.payload;
     },
     [getUserInfo.fulfilled.type]: (
+      state,
+      action: PayloadAction<IPersonType>
+    ) => {
+      state.userInfo = action.payload;
+    },
+    [editPerson.fulfilled.type]: (
       state,
       action: PayloadAction<IPersonType>
     ) => {

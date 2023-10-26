@@ -28,6 +28,17 @@
       }
     }
 
+    div {
+      position: relative;
+      svg {
+        position: absolute;
+        right: 5%;
+        top: 52%;
+        font-size: 20px;
+        color: #32b768;
+      }
+    }
+
     .register__form__subtitle {
       color: #4a4e69;
       font-weight: 700;

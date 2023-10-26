@@ -13,7 +13,7 @@ export type Inputs = {
 };
 
 export interface IPersonType {
-  email: string | null;
+  email: string;
   id: number;
   name: string;
   number: string;

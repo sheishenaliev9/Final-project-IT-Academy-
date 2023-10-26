@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CButton, CInput } from "../../components";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,18 +6,20 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import styles from "./Register.module.scss";
 import { registerUser } from "../../store";
 import { IUserType } from "../../types/index.type";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export const Register: React.FC = () => {
+  const [eye, setEye] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const { userInfo } = useAppSelector((state) => state.users);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IUserType>();
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     // navigate("/");
-  //   }
-  // }, [userInfo]);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      // navigate("/");
+    }
+  }, [userInfo]);
 
   const onSubmit = (values: IUserType) => {
     dispatch(registerUser(values));
@@ -58,15 +60,22 @@ export const Register: React.FC = () => {
           />
         </label>
 
-        <label htmlFor="password">
-          <p>Password</p>
-          <CInput
-            id="password"
-            type="password"
-            placeholder="Enter your password"
-            {...register("password")}
-          />
-        </label>
+        <div>
+          <label htmlFor="password">
+            <p>Password</p>
+            <CInput
+              id="password"
+              type={eye ? "text" : "password"}
+              placeholder="Enter your password"
+              {...register("password")}
+            />
+            {eye ? (
+              <AiOutlineEye onClick={() => setEye(!eye)} />
+            ) : (
+              <AiOutlineEyeInvisible onClick={() => setEye(!eye)} />
+            )}
+          </label>
+        </div>
 
         <CButton type="submit">Зарегистрироваться</CButton>
 

@@ -1,25 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RxAvatar } from "react-icons/rx";
-import { getUserInfo } from "../../store";
-import { CButton } from "../../components";
+import { editPerson, getUserInfo } from "../../store";
+import { CButton, Loader } from "../../components";
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { IPersonType } from "../../types/index.type";
 
 export const Profile: React.FC = () => {
+  const [isDisabled, setIsDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { register, handleSubmit, setValue } = useForm<IPersonType>();
   const { userInfo } = useAppSelector((state) => state.users);
-  const { name, number, photo, email } = userInfo;
+  const { name, number, photo, email, id, user } = userInfo;
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
     navigate("/registration");
   };
 
+  const handleChangeData = (values: IPersonType) => {
+    const dataToSend = { ...values, user };
+
+    dispatch(editPerson({ newData: dataToSend, id }));
+    setIsDisabled(!isDisabled);
+  };
+
   useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
+    const fetchUserInfo = async () => {
+      await dispatch(getUserInfo());
+    };
+
+    setValue("name", name);
+    setValue("email", email);
+    setValue("number", number);
+    fetchUserInfo();
+  }, [dispatch, name, email, number, setValue]);
+
+  if (!name || !number) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.profile}>
@@ -33,13 +55,39 @@ export const Profile: React.FC = () => {
             </div>
 
             <div className={styles.profile__title}>
-              <h3>Имя: {name}</h3>
-              <p>Почта: {email}</p>
-              <p>Телефон: {number}</p>
+              <p>Имя</p>
+              <input
+                type="text"
+                defaultValue={name}
+                disabled={isDisabled}
+                {...register("name")}
+              />
+              <p>Почта</p>
+              <input
+                type="email"
+                defaultValue={email}
+                disabled={isDisabled}
+                {...register("email")}
+              />
+              <p>Номер</p>
+              <input
+                type="text"
+                defaultValue={number}
+                disabled={isDisabled}
+                {...register("number")}
+              />
             </div>
 
             <div className={styles.profile__actions}>
-              <CButton>Редактировать</CButton>
+              {isDisabled ? (
+                <CButton onClick={() => setIsDisabled(!isDisabled)}>
+                  Редактировать
+                </CButton>
+              ) : (
+                <CButton onClick={handleSubmit(handleChangeData)}>
+                  Сохранить
+                </CButton>
+              )}
               <CButton onClick={handleLogOut}>Выйти</CButton>
             </div>
           </div>
