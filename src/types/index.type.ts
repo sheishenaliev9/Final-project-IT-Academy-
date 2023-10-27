@@ -19,6 +19,7 @@ export interface IPersonType {
   number: string;
   photo: string | null;
   user: number;
+  tg_id: string;
 }
 
 // ========================

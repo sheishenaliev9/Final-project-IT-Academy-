@@ -1,13 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IRestaurantType } from "../../types/index.type";
-import { getRestaurants } from "../actions";
+import { getOneRestaurant, getRestaurants } from "../actions";
 
 interface IRestaurantState {
   restaurants: IRestaurantType[];
+  restaurant: IRestaurantType;
 }
 
 const initialState: IRestaurantState = {
   restaurants: [],
+  restaurant: {} as IRestaurantType,
 };
 
 export const restaurantsSlice = createSlice({
@@ -20,6 +22,12 @@ export const restaurantsSlice = createSlice({
       action: PayloadAction<IRestaurantType[]>
     ) => {
       state.restaurants = action.payload;
+    },
+    [getOneRestaurant.fulfilled.type]: (
+      state,
+      action: PayloadAction<IRestaurantType>
+    ) => {
+      state.restaurant = action.payload;
     },
   },
 });

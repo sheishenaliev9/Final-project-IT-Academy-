@@ -24,3 +24,25 @@ export const getRestaurants = createAsyncThunk("getRestaurants", async () => {
     }
   }
 });
+
+export const getOneRestaurant = createAsyncThunk(
+  "getOneRestaurant",
+  async (id: number) => {
+    try {
+      const { data } = await axios.get(`${RESTO_URL}/restaurant_view/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      });
+
+      console.log(data);
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error);
+      }
+    }
+  }
+);
