@@ -31,6 +31,7 @@ export interface IDishType {
   photo: string;
   price: number;
   made_of: string;
+  amount: string;
   type: number;
 }
 

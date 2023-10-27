@@ -1,0 +1,130 @@
+.restaurant {
+  width: 100%;
+  margin: 100px 0;
+
+  .restaurant__inner {
+    .restaurant__info {
+      display: flex;
+      align-items: center;
+
+      .info__image {
+        width: 70%;
+        img {
+          width: 90%;
+        }
+      }
+
+      .info__title {
+        h2 {
+          font-size: 42px;
+          color: #32b768;
+        }
+      }
+    }
+
+    .restaurant__menu {
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+
+      .menu__title {
+        h2 {
+          color: #32b768;
+          font-size: 32px;
+        }
+      }
+
+      .restaurant__menu_block {
+        width: 100%;
+        .menu__list {
+          display: flex;
+          flex-direction: column;
+          .menu__list__title {
+            margin: 30px 0;
+            font-size: 26px;
+            color: #4a4e69;
+          }
+          .menu__list__items {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+          }
+
+          .item {
+            width: 30%;
+            min-height: 500px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+
+            padding: 30px;
+            background: #f3f3f3;
+            border: 2px solid #4a4e69;
+            border-radius: 20px;
+            box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+            transition: 0.3s;
+
+            &:hover {
+              background-color: transparent;
+              border: 2px solid #32b768;
+            }
+
+            .item__image {
+              display: flex;
+              justify-content: center;
+              height: 30%;
+              img {
+                width: 90%;
+              }
+            }
+
+            .item__title {
+              display: flex;
+              flex-direction: column;
+              height: 120px;
+              gap: 7px;
+              h3 {
+                color: #4a4e69;
+                font-weight: 700;
+              }
+
+              p {
+                color: #4a4e69;
+              }
+            }
+
+            .item__subtitle {
+              padding: 10px 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+
+              border-top: 1px double #4a4e69;
+
+              .item__actions {
+                display: flex;
+                gap: 10px;
+
+                button {
+                  cursor: pointer;
+                  background-color: transparent;
+                  border: none;
+
+                  svg {
+                    font-size: 24px;
+                    color: #32b768;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
