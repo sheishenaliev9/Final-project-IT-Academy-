@@ -1,13 +1,17 @@
 .profile {
   width: 100%;
-  margin: 100px auto;
+  margin: 80px auto;
 
   .profile__inner {
-    padding: 0 50px;
+    padding: 50px 50px;
     display: flex;
     justify-content: space-between;
+    
+    background: #f3f3f3;
+    border-radius: 20px;
+    box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
     .profile__user {
-        width: 40%;
+      width: 40%;
       display: flex;
       flex-direction: column;
       gap: 30px;
@@ -24,41 +28,63 @@
         gap: 5px;
 
         p {
-            font-weight: 700;
-            font-size: 18px;
+          font-weight: 700;
+          font-size: 18px;
         }
 
         input {
-            width: 45%;
-            border: 1px solid #4a4e69;
-            border-radius: 8px;
-            outline: none;
-            font-weight: 700;
-            font-size: 16px;
+          width: 45%;
+          border: 1px solid #4a4e69;
+          border-radius: 8px;
+          outline: none;
+          font-weight: 700;
+          font-size: 16px;
 
-            &:disabled {
-                border: none;
-                outline: none;
-                background-color: transparent;
-            }
+          &:disabled {
+            border: none;
+            outline: none;
+            background-color: transparent;
+          }
         }
       }
-      
+
       .profile__actions {
         display: flex;
         flex-direction: column;
         gap: 15px;
+
+        .actions__logOut {
+            width: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            background: none;
+            border: none;
+            outline: none;
+            color: red;
+            cursor: pointer;
+
+            padding: 10px 12px;
+            font-weight: 700; 
+            font-size: 18px;
+
+            svg {
+                font-size: 22px;
+            }
+        }
       }
     }
 
     .profile__order {
-        width: 40%;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        h3 {
-            text-align: left;
-        }
+      width: 40%;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      h3 {
+        text-align: left;
+      }
     }
   }
 }

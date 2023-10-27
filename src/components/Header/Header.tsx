@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
 
           <nav className={styles.header__nav}>
             <Link to="/booking">Бронирование</Link>
-            <Link to="/menu">Меню</Link>
+            <Link to="/restaurants">Рестораны</Link>
             <Link to="/contacts">Контакты</Link>
           </nav>
 

@@ -3,6 +3,7 @@ import styles from "./DishMenu.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getDishes } from "../../store";
 import { IDishType } from "../../types/index.type";
+import { Loader } from "../../components";
 
 export const DishMenu: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -15,17 +16,19 @@ export const DishMenu: React.FC = () => {
   return (
     <div className={styles.dish_menu}>
       <div className="container">
-        <div className={styles.dish_menu__title}>
-          <h1>Все блюда из ресторана</h1>
-          <p>Выбери и закажи еду заранее</p>
-        </div>
+        <div className={styles.dish_menu__inner}>
+          <div className={styles.dish_menu__title}>
+            <h1>Все блюда из ресторана</h1>
+            <p>Выбери и закажи еду заранее</p>
+          </div>
 
-        <div className={styles.dish_menu__list}>
-          {dishes ? (
-            dishes.map((dish) => <DishItem key={dish.id} dish={dish} />)
-          ) : (
-            <p>404</p>
-          )}
+          <div className={styles.dish_menu__list}>
+            {dishes ? (
+              dishes.map((dish) => <DishItem key={dish.id} dish={dish} />)
+            ) : (
+              <Loader />
+            )}
+          </div>
         </div>
       </div>
     </div>

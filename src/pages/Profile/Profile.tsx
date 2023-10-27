@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Profile.module.scss";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RxAvatar } from "react-icons/rx";
 import { editPerson, getUserInfo } from "../../store";
@@ -7,6 +6,8 @@ import { CButton, Loader } from "../../components";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { IPersonType } from "../../types/index.type";
+import { HiOutlineLogout } from "react-icons/hi";
+import styles from "./Profile.module.scss";
 
 export const Profile: React.FC = () => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -88,7 +89,9 @@ export const Profile: React.FC = () => {
                   Сохранить
                 </CButton>
               )}
-              <CButton onClick={handleLogOut}>Выйти</CButton>
+              <button className={styles.actions__logOut} onClick={handleLogOut}>
+                Выйти <HiOutlineLogout />
+              </button>
             </div>
           </div>
 

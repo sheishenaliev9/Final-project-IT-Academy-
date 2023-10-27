@@ -32,3 +32,23 @@ export interface IDishType {
   made_of: string;
   type: number;
 }
+
+// ========================
+// Restaurant
+
+export interface IRestaurantType {
+  id: number;
+  available_tables: number;
+  rating: number;
+  dishes: IDishType[];
+  drinks: IDishType[];
+  name: string;
+  description: string;
+  photo_1: string;
+  average_bill: number;
+  tables: number;
+  address: string;
+  plan: string;
+  owner: number;
+  type: number[];
+}
