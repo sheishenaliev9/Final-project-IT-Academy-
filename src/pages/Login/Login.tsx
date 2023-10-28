@@ -11,17 +11,21 @@ import styles from "./Login.module.scss";
 export const Login: React.FC = () => {
   const [eye, setEye] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  // const { userInfo } = useAppSelector((state) => state.users);
   const { register, handleSubmit } = useForm<IUserType>();
   const navigate = useNavigate();
 
-  const onSubmit = (values: IUserType) => {
-    dispatch(loginUser(values));
-
-    if (localStorage.getItem("token")) {
-      navigate(`/profile`);
+  const onSubmit = async (values: IUserType) => {
+    try {
+      await dispatch(loginUser(values));
+  
+      if (localStorage.getItem("token")) {
+        navigate(`/profile`);
+      }
+    } catch (error) {
+      console.error("Ошибка входа в систему:", error);
     }
   };
+
   return (
     <div className={styles.login}>
       <form className={styles.login__form} onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +59,8 @@ export const Login: React.FC = () => {
         <CButton type="submit">Войти</CButton>
 
         <p className={styles.login__form__subtitle}>
-          Если еще нет аккаунта: <Link to="/registration">Зарегистрироваться</Link>
+          Если еще нет аккаунта:{" "}
+          <Link to="/registration">Зарегистрироваться</Link>
         </p>
       </form>
     </div>

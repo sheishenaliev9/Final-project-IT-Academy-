@@ -4,7 +4,7 @@ import { IPersonType, IUserType } from "../../types/index.type";
 
 export const registerUser = createAsyncThunk(
   "registerUser",
-  async (newUser: IUserType) => {
+  async (newUser: IUserType, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_AUTH_URL}/user/`,
@@ -21,6 +21,7 @@ export const registerUser = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
+        rejectWithValue(error.response?.data)
       } else {
         console.log(error);
       }
@@ -32,12 +33,10 @@ export const loginUser = createAsyncThunk(
   "loginUser",
   async (user: IUserType) => {
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_TOKEN_URL}`,
-        user,
+      const { data } = await axios.post( `${import.meta.env.VITE_AUTH_URL}/token/`,user,
         {
           headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+            Authorization: `Bearer ${import.meta.env.TOKEN}`,
           },
         }
       );

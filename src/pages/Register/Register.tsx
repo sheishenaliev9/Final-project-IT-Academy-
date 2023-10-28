@@ -21,9 +21,13 @@ export const Register: React.FC = () => {
     }
   }, [userInfo]);
 
-  const onSubmit = (values: IUserType) => {
-    dispatch(registerUser(values));
-    navigate("/login");
+  const onSubmit = async (values: IUserType) => {
+    try {
+      const { payload } = await dispatch(registerUser(values));
+      payload && navigate("/login");
+    } catch (error) {
+      console.error("Ошибка регистрации", error);
+    }
   };
 
   return (
