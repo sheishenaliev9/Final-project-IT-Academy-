@@ -1,18 +1,28 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useParams } from "react-router";
-import { getOneRestaurant } from "../../store";
-import { DishItem, Loader } from "../../components";
+import { getOneRestaurant, addToCartAction } from "../../store";
+import { Loader } from "../../components";
 
 import styles from "./OneRestaurant.module.scss";
+import { IDishType } from "../../types/index.type";
+import { BiCartAdd } from "react-icons/bi";
 
 export const OneRestaurant: React.FC = () => {
   const dispatch = useAppDispatch();
   const { restaurant } = useAppSelector((state) => state.restaurants);
+  const { cart } = useAppSelector((state) => state.cart);
   const { id } = useParams();
 
-  const { name, description, photo_1, address, tables, dishes } =
-    restaurant;
+  console.log(cart);
+
+  const { name, description, photo_1, address, tables, dishes, drinks } = restaurant;
+
+  const addToCart = (id: number, type: string) => {
+    dispatch(
+      addToCartAction({ item: { id, type }, restaurant_id: restaurant.id })
+    );
+  };
 
   useEffect(() => {
     dispatch(getOneRestaurant(Number(id)));
@@ -48,7 +58,9 @@ export const OneRestaurant: React.FC = () => {
                 </div>
                 <div className={styles.menu__list__items}>
                   {dishes ? (
-                    dishes.map((dish) => <DishItem key={dish.id} item={dish} />)
+                    dishes.map((dish) => (
+                      <MenuItem key={dish.id} item={dish} onClick={addToCart} />
+                    ))
                   ) : (
                     <Loader />
                   )}
@@ -60,13 +72,13 @@ export const OneRestaurant: React.FC = () => {
                   <h3>Напитки</h3>
                 </div>
                 <div className={styles.menu__list__items}>
-                  {/* {drinks ? (
+                  {drinks ? (
                     drinks.map((drink) => (
-                      <MenuItem key={drink.id} item={drink} />
+                      <MenuItem key={drink.id} item={drink} onClick={addToCart} />
                     ))
                   ) : (
                     <Loader />
-                  )} */}
+                  )}
                 </div>
               </div>
             </div>
@@ -76,3 +88,36 @@ export const OneRestaurant: React.FC = () => {
     </div>
   );
 };
+
+
+interface IMenuProps {
+  item: IDishType;
+  onClick: (id: number, type: string) => void;
+}
+
+export const MenuItem: React.FC<IMenuProps> = ({ item, onClick }) => {
+  const { name, photo, made_of, amount, price, id } = item;
+  
+
+  return (
+    <div className={styles.item}>
+      <div className={styles.item__image}>
+        <img src={photo} alt={name} />
+      </div>
+      <div className={styles.item__title}>
+        <h3>{name}</h3>
+        <p>{made_of}</p>
+      </div>
+      <div className={styles.item__subtitle}>
+        <p>{amount}</p>
+        <div className={styles.item__actions}>
+          <p>{price} с</p>
+          <button onClick={() => onClick(id, "dishes")}>
+            <BiCartAdd />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+

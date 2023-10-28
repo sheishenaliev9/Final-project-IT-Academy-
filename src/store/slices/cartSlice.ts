@@ -1,9 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ICartType } from "../../types/index.type";
-import { getCart } from "..";
+import { ICartResultType } from "../../types/index.type";
+import { addToCart, getCart } from "..";
 //
 interface ICartState {
-  cart: ICartType[];
+  cart: ICartResultType[];
+}
+
+interface IAddToCartPayload {
+  restaurant_id: number;
+  item: {
+    id: number;
+    type: string;
+  };
 }
 
 const initialState: ICartState = {
@@ -13,10 +21,46 @@ const initialState: ICartState = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    addToCartAction: (state, { payload }: PayloadAction<IAddToCartPayload>) => {
+      const currentRestaurant: any = state.cart.find(
+        ({ id }) => payload.restaurant_id === id
+      );
+      const filteredCart = state.cart.filter(
+        ({ id }) => id !== payload.restaurant_id
+      );
+      console.log(filteredCart);
+
+      if (currentRestaurant) {
+        currentRestaurant[payload.item.type].push(payload.item.id);
+        filteredCart.push(currentRestaurant);
+        state.cart = filteredCart;
+      } else {
+        state.cart.push({
+          id: payload.restaurant_id,
+          totalPrice: 0,
+          person: 1,
+          drinks: [],
+          dishes: [],
+          [payload.item.type]: [payload.item.id],
+        });
+      }
+    },
+  },
   extraReducers: {
-    [getCart.fulfilled.type]: (state, action: PayloadAction<ICartType[]>) => {
+    [getCart.fulfilled.type]: (
+      state,
+      action: PayloadAction<ICartResultType[]>
+    ) => {
+      state.cart = action.payload;
+    },
+    [addToCart.fulfilled.type]: (
+      state,
+      action: PayloadAction<ICartResultType[]>
+    ) => {
       state.cart = action.payload;
     },
   },
 });
+
+export const { addToCartAction } = cartSlice.actions;

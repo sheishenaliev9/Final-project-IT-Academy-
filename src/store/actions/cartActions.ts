@@ -4,7 +4,7 @@ import { ICartType } from "../../types/index.type";
 
 export const getCart = createAsyncThunk("getCart", async () => {
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.get<ICartType>(
       `${import.meta.env.VITE_RESTO_URL}/cart_view/`,
       {
         headers: {
@@ -12,7 +12,7 @@ export const getCart = createAsyncThunk("getCart", async () => {
         },
       }
     );
-    console.log(data.results)
+    console.log(data.results);
     return data.results;
   } catch (error) {
     if (axios.isAxiosError(error)) {

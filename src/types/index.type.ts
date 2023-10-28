@@ -59,9 +59,16 @@ export interface IRestaurantType {
 // Cart
 
 export interface ICartType {
+  count: number,
+  next: unknown,
+  previous: unknown,
+  results: ICartResultType;
+}
+
+export interface ICartResultType {
   id: number;
   person: number;
   totalPrice: number
-  dishes: IDishType[];
-  drinks: IDishType[];
+  dishes: IDishType[] | number[];
+  drinks: IDishType[] | number[];
 }
