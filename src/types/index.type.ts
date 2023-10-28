@@ -54,3 +54,14 @@ export interface IRestaurantType {
   owner: number;
   type: number[];
 }
+
+// ========================
+// Cart
+
+export interface ICartType {
+  id: number;
+  person: number;
+  totalPrice: number
+  dishes: IDishType[];
+  drinks: IDishType[];
+}

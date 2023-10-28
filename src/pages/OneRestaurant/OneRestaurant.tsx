@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useParams } from "react-router";
 import { getOneRestaurant } from "../../store";
-import { Loader } from "../../components";
-import { IDishType } from "../../types/index.type";
-import { BiCartAdd } from "react-icons/bi";
+import { DishItem, Loader } from "../../components";
+
 import styles from "./OneRestaurant.module.scss";
 
 export const OneRestaurant: React.FC = () => {
@@ -12,8 +11,9 @@ export const OneRestaurant: React.FC = () => {
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { id } = useParams();
 
-  const { name, description, photo_1, address, tables, dishes, drinks } =
+  const { name, description, photo_1, address, tables, dishes } =
     restaurant;
+
   useEffect(() => {
     dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
@@ -48,7 +48,7 @@ export const OneRestaurant: React.FC = () => {
                 </div>
                 <div className={styles.menu__list__items}>
                   {dishes ? (
-                    dishes.map((dish) => <MenuItem key={dish.id} item={dish} />)
+                    dishes.map((dish) => <DishItem key={dish.id} item={dish} />)
                   ) : (
                     <Loader />
                   )}
@@ -60,46 +60,17 @@ export const OneRestaurant: React.FC = () => {
                   <h3>Напитки</h3>
                 </div>
                 <div className={styles.menu__list__items}>
-                  {drinks ? (
+                  {/* {drinks ? (
                     drinks.map((drink) => (
                       <MenuItem key={drink.id} item={drink} />
                     ))
                   ) : (
                     <Loader />
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-interface IMenuProps {
-  item: IDishType;
-}
-
-export const MenuItem: React.FC<IMenuProps> = ({ item }) => {
-  const { name, photo, made_of, amount, price } = item;
-
-  return (
-    <div className={styles.item}>
-      <div className={styles.item__image}>
-        <img src={photo} alt={name} />
-      </div>
-      <div className={styles.item__title}>
-        <h3>{name}</h3>
-        <p>{made_of}</p>
-      </div>
-      <div className={styles.item__subtitle}>
-        <p>{amount}</p>
-        <div className={styles.item__actions}>
-          <p>{price} с</p>
-          <button>
-            <BiCartAdd />
-          </button>
         </div>
       </div>
     </div>

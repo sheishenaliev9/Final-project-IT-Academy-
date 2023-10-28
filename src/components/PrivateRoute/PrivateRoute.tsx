@@ -8,7 +8,7 @@ export const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         if (token == null) {
-            navigate('/register');
+            navigate('/registration');
         }
     })
 

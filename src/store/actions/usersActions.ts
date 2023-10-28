@@ -2,19 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IPersonType, IUserType } from "../../types/index.type";
 
-const AUTH_URL = "https://restaurant--ormonov31261.repl.co/api/v1/user_auth";
-const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4Njk2OTk4LCJpYXQiOjE2OTgyNjQ5OTgsImp0aSI6ImQ5YmUwYWY3M2I2ZjQ2NTRhOWI2YjIwYWIxODVkYWIzIiwidXNlcl9pZCI6MX0.Tq_bcgQaeqdg64wX2xbLCE6KEhhB2_eqBkN0OfEfgY4";
-
 export const registerUser = createAsyncThunk(
   "registerUser",
   async (newUser: IUserType) => {
     try {
-      const { data } = await axios.post(`${AUTH_URL}/user/`, newUser, {
-        headers: {
-          Authorization: `Bearer ${TOKEN}`,
-        },
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_AUTH_URL}/user/`,
+        newUser,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+          },
+        }
+      );
 
       localStorage.setItem("token", data.access);
       return data;
@@ -33,11 +33,11 @@ export const loginUser = createAsyncThunk(
   async (user: IUserType) => {
     try {
       const { data } = await axios.post(
-        `https://restaurant--ormonov31261.repl.co/api/v1/user_auth/token/`,
+        `${import.meta.env.VITE_TOKEN_URL}`,
         user,
         {
           headers: {
-            Authorization: `Bearer ${TOKEN}`,
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
           },
         }
       );
@@ -57,7 +57,7 @@ export const loginUser = createAsyncThunk(
 
 export const getUserInfo = createAsyncThunk("getUserInfo", async () => {
   try {
-    const { data } = await axios.get(`${AUTH_URL}/current_user/`, {
+    const { data } = await axios.get(`${import.meta.env.VITE_AUTH_URL}/current_user/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -76,9 +76,9 @@ export const editPerson = createAsyncThunk(
   "editPerson",
   async ({ newData, id }: { newData: IPersonType; id: number }) => {
     try {
-      const { data } = await axios.put(`${AUTH_URL}/person/${id}/`, newData, {
+      const { data } = await axios.put(`${import.meta.env.VITE_AUTH_URL}/person/${id}/`, newData, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
         },
       });
 

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { FaUserAlt } from "react-icons/fa";
+import { BiCartAlt } from "react-icons/bi";
 import styles from "./Header.module.scss";
 import React from "react";
 
@@ -12,7 +13,6 @@ export const Header: React.FC = () => {
 
     if (token) return navigate("/profile");
     else return navigate("/registration");
-  
   };
   return (
     <header className={styles.header}>
@@ -30,8 +30,11 @@ export const Header: React.FC = () => {
             <Link to="/contacts">Контакты</Link>
           </nav>
 
-          <div className={styles.header__profile} onClick={handleProfileClick}>
-            <FaUserAlt />
+          <div className={styles.header__profile}>
+            <Link to="/cart">
+              <BiCartAlt />
+            </Link>
+            <FaUserAlt onClick={handleProfileClick} />
           </div>
         </div>
       </div>
