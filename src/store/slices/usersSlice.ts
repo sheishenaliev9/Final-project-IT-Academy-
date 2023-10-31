@@ -4,12 +4,10 @@ import { editPerson, getUserInfo, registerUser } from "../actions";
 
 interface IUserState {
   userInfo: IPersonType;
-  errorMessage: string | null
 }
 
 const initialState: IUserState = {
   userInfo: {} as IPersonType,
-  errorMessage: null
 };
 
 export const usersSlice = createSlice({

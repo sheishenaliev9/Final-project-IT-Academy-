@@ -15,6 +15,10 @@ export const Restaurants: React.FC = () => {
     dispatch(getRestaurants());
   }, [dispatch]);
 
+  if (!restaurants) {
+    return <Loader />;
+  }
+
   return (
     <div className={styles.restaurants}>
       <div className="container">

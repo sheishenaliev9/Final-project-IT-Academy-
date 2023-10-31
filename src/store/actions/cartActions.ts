@@ -1,10 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ICartType } from "../../types/index.type";
+
+interface IAddToCart {
+  person_id: string;
+  dish_id?: string;
+  drink_id?: string;
+}
 
 export const getCart = createAsyncThunk("getCart", async () => {
   try {
-    const { data } = await axios.get<ICartType>(
+    const { data } = await axios.get(
       `${import.meta.env.VITE_RESTO_URL}/cart_view/`,
       {
         headers: {
@@ -12,7 +17,7 @@ export const getCart = createAsyncThunk("getCart", async () => {
         },
       }
     );
-    console.log(data.results);
+    console.log(data.results)
     return data.results;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -25,17 +30,19 @@ export const getCart = createAsyncThunk("getCart", async () => {
 
 export const addToCart = createAsyncThunk(
   "addToCart",
-  async ({ data, id }: { data: ICartType, id: number }) => {
+  async (values: IAddToCart) => {
     try {
-      await axios.put(
-        `${import.meta.env.VITE_RESTO_URL}/cart_create/${id}/`,
-        data,
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
+        values,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
           },
         }
       );
+
+      return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

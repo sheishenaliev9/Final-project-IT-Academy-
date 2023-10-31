@@ -21,7 +21,7 @@ export const registerUser = createAsyncThunk(
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
-        rejectWithValue(error.response?.data)
+        rejectWithValue(error.response?.data);
       } else {
         console.log(error);
       }
@@ -33,7 +33,9 @@ export const loginUser = createAsyncThunk(
   "loginUser",
   async (user: IUserType) => {
     try {
-      const { data } = await axios.post( `${import.meta.env.VITE_AUTH_URL}/token/`,user,
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_AUTH_URL}/token/`,
+        user,
         {
           headers: {
             Authorization: `Bearer ${import.meta.env.TOKEN}`,
@@ -56,11 +58,14 @@ export const loginUser = createAsyncThunk(
 
 export const getUserInfo = createAsyncThunk("getUserInfo", async () => {
   try {
-    const { data } = await axios.get(`${import.meta.env.VITE_AUTH_URL}/current_user/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_AUTH_URL}/current_user/`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
     return data.person_data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -75,11 +80,15 @@ export const editPerson = createAsyncThunk(
   "editPerson",
   async ({ newData, id }: { newData: IPersonType; id: number }) => {
     try {
-      const { data } = await axios.put(`${import.meta.env.VITE_AUTH_URL}/person/${id}/`, newData, {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
-        },
-      });
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_AUTH_URL}/person/${id}/`,
+        newData,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+          },
+        }
+      );
 
       return data;
     } catch (error) {

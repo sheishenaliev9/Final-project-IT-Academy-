@@ -10,7 +10,6 @@ export const getRestaurants = createAsyncThunk("getRestaurants", async () => {
       },
     });
 
-    console.log(data);
     return data.results;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -31,7 +30,6 @@ export const getOneRestaurant = createAsyncThunk(
         },
       });
 
-      console.log(data);
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

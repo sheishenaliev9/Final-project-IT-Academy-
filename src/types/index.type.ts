@@ -25,7 +25,7 @@ export interface IPersonType {
 // ========================
 // Dish
 
-export interface IDishType {
+export interface IMenuType {
   id: number;
   name: string;
   photo: string;
@@ -33,6 +33,7 @@ export interface IDishType {
   made_of: string;
   amount: string;
   type: number;
+  category?: number;
 }
 
 // ========================
@@ -42,8 +43,8 @@ export interface IRestaurantType {
   id: number;
   available_tables: number;
   rating: number;
-  dishes: IDishType[];
-  drinks: IDishType[];
+  dishes: IMenuType[];
+  drinks: IMenuType[];
   name: string;
   description: string;
   photo_1: string;
@@ -58,17 +59,12 @@ export interface IRestaurantType {
 // ========================
 // Cart
 
+
 export interface ICartType {
-  count: number,
-  next: unknown,
-  previous: unknown,
-  results: ICartResultType;
+  id: number;
+  total_price: number;
+  person: number;
+  dishes: IMenuType[];
+  drinks: IMenuType[];
 }
 
-export interface ICartResultType {
-  id: number;
-  person: number;
-  totalPrice: number
-  dishes: IDishType[] | number[];
-  drinks: IDishType[] | number[];
-}

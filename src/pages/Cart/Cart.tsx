@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import styles from "./Cart.module.scss";
+import { getCart } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { Loader } from "../../components";
-import { getCart } from "../../store";
 import { ICartType } from "../../types/index.type";
+
 
 export const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
+  
+  console.log(cart);
 
   useEffect(() => {
     dispatch(getCart());
@@ -44,7 +47,7 @@ export const CartItem: React.FC<ICartProps> = ({ item }) => {
   return (
     <div className={styles.cart_item}>
       {dishes.map((item) => (
-        <div className={styles.cart_item__info}>
+        <div key={item.id} className={styles.cart_item__info}>
           <div className={styles.cart_item__img}>
             <img src={item.photo} alt={item.name} />
           </div>
