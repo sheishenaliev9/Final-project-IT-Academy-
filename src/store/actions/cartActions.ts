@@ -2,9 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface IAddToCart {
-  person_id: string;
+  person_id?: string;
   dish_id?: string;
   drink_id?: string;
+  action?: string;
 }
 
 export const getCart = createAsyncThunk("getCart", async () => {
@@ -17,7 +18,7 @@ export const getCart = createAsyncThunk("getCart", async () => {
         },
       }
     );
-    console.log(data.results)
+    console.log(data.results);
     return data.results;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -43,6 +44,48 @@ export const addToCart = createAsyncThunk(
       );
 
       return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error);
+      }
+    }
+  }
+);
+
+export const clearCart = createAsyncThunk(
+  "deleteFromCart",
+  async (values: IAddToCart) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+          },
+        }
+      );
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error);
+      }
+    }
+  }
+);
+
+export const deleteFromCart = createAsyncThunk(
+  "deleteFromCart",
+  async (values: IAddToCart) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
+        values,
+        { headers: { Authorization: `Bearer ${import.meta.env.VITE_TOKEN}` } }
+      );
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

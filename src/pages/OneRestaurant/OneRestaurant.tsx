@@ -23,7 +23,7 @@ export const OneRestaurant: React.FC = () => {
   const addToCartFunc = (item: IMenuType, type: string) => {
     const formData = new FormData();
     formData.append("person_id", "1");
-  
+    formData.append("action", "update");
     if (type === "dish") {
       formData.append("dish_id", item.id.toString());
     } else if (type === "drink") {
