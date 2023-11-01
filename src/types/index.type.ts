@@ -68,3 +68,10 @@ export interface ICartType {
   drinks: IMenuType[];
 }
 
+export interface ICartActions {
+  person_id?: string;
+  dish_id?: string;
+  drink_id?: string;
+  action?: string;
+}
+

@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { clearCart, deleteFromCart, getCart } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { Loader } from "../../components";
-import { ICartType } from "../../types/index.type";
-import { MdDeleteOutline } from "react-icons/md";
+import { CartDishes, CartDrinks, Loader } from "../../components";
+import { ICartActions } from "../../types/index.type";
 import styles from "./Cart.module.scss";
 
 export const Cart: React.FC = () => {
@@ -19,7 +18,7 @@ export const Cart: React.FC = () => {
     formData.append("person_id", "1");
     formData.append("action", "clear");
 
-    dispatch(clearCart(formData));
+    dispatch(clearCart(formData as ICartActions));
   };
 
   const deleteFromCartFunc = (id: number) => {
@@ -28,9 +27,11 @@ export const Cart: React.FC = () => {
     formData.append("action", "remove");
     formData.append("dish_id", id.toString());
 
-    dispatch(deleteFromCart(formData));
+    dispatch(deleteFromCart(formData as ICartActions));
     dispatch(getCart());
   };
+
+  if (!cart) return <Loader />;
 
   return (
     <div className={styles.cart}>
@@ -41,61 +42,47 @@ export const Cart: React.FC = () => {
               <div className={styles.cart__list__title}>
                 <h2>Корзина:</h2>
               </div>
-              {cart ? (
-                cart.map((item) => (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    onClick={deleteFromCartFunc}
-                  />
-                ))
-              ) : (
-                <Loader />
-              )}
+              <div className={styles.cart__list__items}>
+                <div>
+                  <h2>Блюда</h2>
+                  {cart &&
+                    cart.map((item) =>
+                      item.dishes.map((item) => (
+                        <CartDishes
+                          key={item.id}
+                          item={item}
+                          onClick={deleteFromCartFunc}
+                        />
+                      ))
+                    )}
+                </div>
+                <div>
+                  <h2>Напитки</h2>
+                  {cart &&
+                    cart.map((item) =>
+                      item.drinks.map((item) => (
+                        <CartDrinks
+                          key={item.id}
+                          item={item}
+                          onClick={deleteFromCartFunc}
+                        />
+                      ))
+                    )}
+                </div>
+              </div>
             </div>
 
-            <div>
-              <button onClick={clearCartFunc}>Очистить корзину</button>
-              <h2>{cart.map((item) => item.total_price)} с</h2>
-              <form></form>
+            <div className={styles.cart__info__actions}>
+              <h2>Оформление заказа:</h2>
+              <div className={styles.cart__actions__btns}>
+                <button>Добавить ко столу</button>
+                <button onClick={clearCartFunc}>Очистить корзину</button>
+              </div>
+              <h2>Итого: {cart.map((item) => item.total_price)} с</h2>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-interface ICartProps {
-  item: ICartType;
-  onClick: (id: number) => void;
-}
-
-export const CartItem: React.FC<ICartProps> = ({ item, onClick }) => {
-  const { dishes } = item;
-
-  return (
-    <div className={styles.cart_items}>
-      {dishes.map((item) => (
-        <div key={item.id} className={styles.cart_item__info}>
-          <div className={styles.cart_item__title}>
-            <img src={item.photo} alt={item.name} />
-            <div>
-              <h3>{item.name}</h3>
-              <p>
-                <span>Состав:</span> {item.made_of}
-              </p>
-              <p>{item.price} с</p>
-            </div>
-          </div>
-
-          <div className={styles.cart_item__actions}>
-            <button onClick={() => onClick(item.id)}>
-              <MdDeleteOutline />
-            </button>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };

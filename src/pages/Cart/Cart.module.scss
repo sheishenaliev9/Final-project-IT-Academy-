@@ -2,7 +2,7 @@
   width: 100%;
   margin: 100px auto;
   .cart__inner {
-    padding: 50px 50px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
 
@@ -21,48 +21,52 @@
       .cart__list {
         display: flex;
         flex-direction: column;
-        align-items: center;
         border-right: 2px solid #ccc;
         min-width: 60%;
 
         .cart__list__title {
+          text-align: center;
           h2 {
             color: #32b768;
           }
         }
 
-        .cart_items {
+        .cart__list__items {
           display: flex;
           flex-direction: column;
           gap: 30px;
-          .cart_item__info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 25px;
-            padding: 15px;
+        }
+      }
 
-            
-            .cart_item__title {
-              display: flex;
-              align-items: center;
-              gap: 20px;
-              img {
-                width: 170px;
-              }
-              width: 70%;
-            }
+      .cart__info__actions {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
 
-            .cart_item__actions {
-              button {
-                cursor: pointer;
-                background-color: transparent;
-                border: none;
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        width: 40%;
+        h2 {
+          color: #32b768;
+        }
 
-                svg {
-                  font-size: 32px;
-                }
-              }
+        .cart__actions__btns {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          button {
+            width: 70%;
+            background-color: #ccc;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            transition:  .3s;
+
+            &:hover {
+              background-color: #32b768;
+              color: #fff;
             }
           }
         }

@@ -1,0 +1,39 @@
+.cart_item {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .cart_item__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 15px;
+
+    .cart_item__title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      img {
+        width: 130px;
+      }
+      width: 70%;
+    }
+
+    .cart_item__actions {
+      button {
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+
+        svg {
+          font-size: 32px;
+          transition: 0.3s;
+
+          &:hover {
+            color: red;
+          }
+        }
+      }
+    }
+  }
+}

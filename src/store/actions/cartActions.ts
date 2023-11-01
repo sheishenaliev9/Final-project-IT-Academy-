@@ -1,12 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { ICartActions } from "../../types/index.type";
 
-interface IAddToCart {
-  person_id?: string;
-  dish_id?: string;
-  drink_id?: string;
-  action?: string;
-}
 
 export const getCart = createAsyncThunk("getCart", async () => {
   try {
@@ -31,7 +26,7 @@ export const getCart = createAsyncThunk("getCart", async () => {
 
 export const addToCart = createAsyncThunk(
   "addToCart",
-  async (values: IAddToCart) => {
+  async (values: ICartActions) => {
     try {
       const { data } = await axios.post(
         `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
@@ -56,7 +51,7 @@ export const addToCart = createAsyncThunk(
 
 export const clearCart = createAsyncThunk(
   "deleteFromCart",
-  async (values: IAddToCart) => {
+  async (values: ICartActions) => {
     try {
       await axios.post(
         `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
@@ -79,7 +74,7 @@ export const clearCart = createAsyncThunk(
 
 export const deleteFromCart = createAsyncThunk(
   "deleteFromCart",
-  async (values: IAddToCart) => {
+  async (values: ICartActions) => {
     try {
       await axios.post(
         `${import.meta.env.VITE_RESTO_URL}/cart_update/`,

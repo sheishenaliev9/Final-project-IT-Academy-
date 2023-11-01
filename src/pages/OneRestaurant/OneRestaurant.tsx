@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { addToCart, getOneRestaurant } from "../../store";
 import { Loader } from "../../components";
 import styles from "./OneRestaurant.module.scss";
-import { IMenuType } from "../../types/index.type";
+import { ICartActions, IMenuType } from "../../types/index.type";
 import { BiCartAdd } from "react-icons/bi";
 
 export const OneRestaurant: React.FC = () => {
@@ -30,7 +30,7 @@ export const OneRestaurant: React.FC = () => {
       formData.append("drink_id", item.id.toString());
     }
   
-    dispatch(addToCart(formData));
+    dispatch(addToCart(formData as ICartActions));
   };
 
   
