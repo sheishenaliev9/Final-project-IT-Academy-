@@ -6,6 +6,7 @@ import { Loader } from "../../components";
 import styles from "./OneRestaurant.module.scss";
 import { ICartActions, IMenuType } from "../../types/index.type";
 import { BiCartAdd } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 export const OneRestaurant: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -49,6 +50,7 @@ export const OneRestaurant: React.FC = () => {
               <p>{description}</p>
               <p>{address}</p>
               <p>{tables}</p>
+              <Link to={`/booking/${id}`}>Забронировать стол</Link>
             </div>
           </div>
 

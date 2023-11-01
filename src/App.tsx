@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router";
-import "./App.scss";
 import { Layout } from "./layout/Layout";
 import React from "react";
 import {
+  Booking,
   Cart,
   Home,
   Login,
@@ -12,6 +12,7 @@ import {
   Restaurants,
 } from "./pages";
 import { PrivateRoute } from "./components";
+import "./App.scss";
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,7 @@ const App: React.FC = () => {
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/booking/:id" element={<Booking />} />
         </Route>
       </Routes>
     </div>
