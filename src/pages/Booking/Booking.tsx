@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getOneRestaurant } from "../../store";
 import styles from "./Booking.module.scss";
-import { CButton, CInput } from "../../components";
+import { CButton, CInput, TableList } from "../../components";
 
 export const Booking: React.FC = () => {
   const { id } = useParams();
@@ -11,12 +11,9 @@ export const Booking: React.FC = () => {
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { plan } = restaurant;
 
-
   useEffect(() => {
     dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
-
-  // const filteredTables = tables.filter(table => table.restaurant === Number(id));
 
   return (
     <div className={styles.booking}>
@@ -29,6 +26,7 @@ export const Booking: React.FC = () => {
 
           <div className={styles.booking__block}>
             <div className={styles.booking__image}>
+              <TableList id={Number(id)} />
               <img src={plan} alt="" />
             </div>
 
@@ -40,11 +38,15 @@ export const Booking: React.FC = () => {
                   <CInput id="name" type="text" placeholder="Ваше имя" />
                 </label>
                 <label htmlFor="phone">
-                <p>Имя:</p>
-                  <CInput id="phone" type="text" placeholder="Ваш номер телефона" />
+                  <p>Имя:</p>
+                  <CInput
+                    id="phone"
+                    type="text"
+                    placeholder="Ваш номер телефона"
+                  />
                 </label>
                 <label htmlFor="time">
-                <p>Время:</p>
+                  <p>Время:</p>
                   <CInput id="time" type="time" placeholder="Желаемое время" />
                 </label>
 

@@ -86,5 +86,6 @@ export interface ITableType {
   reserved_time: null;
   restaurant: number;
   reserved_by: null;
+  d: string;
   dishes: IMenuType[];
 }

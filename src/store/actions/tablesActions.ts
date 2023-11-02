@@ -3,14 +3,11 @@ import axios from "axios";
 
 export const getTables = createAsyncThunk("getTables", async () => {
   try {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_RESTO_URL}/table/`,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`http://localhost:8080/tables`, {
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+      },
+    });
 
     return data;
   } catch (error) {
