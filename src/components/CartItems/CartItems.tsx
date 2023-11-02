@@ -5,7 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 
 interface ICartProps {
   item: IMenuType;
-  onClick: (id: number) => void;
+  onClick: (id: number, itemType: "dish" | "drink") => void;
 }
 
 export const CartDishes: React.FC<ICartProps> = ({ item, onClick }) => {
@@ -25,7 +25,7 @@ export const CartDishes: React.FC<ICartProps> = ({ item, onClick }) => {
         </div>
 
         <div className={styles.cart_item__actions}>
-          <button onClick={() => onClick(item.id)}>
+          <button onClick={() => onClick(item.id, "dish")}>
             <MdDeleteOutline />
           </button>
         </div>
@@ -50,7 +50,7 @@ export const CartDrinks: React.FC<ICartProps> = ({ item, onClick }) => {
         </div>
 
         <div className={styles.cart_item__actions}>
-          <button onClick={() => onClick(item.id)}>
+          <button onClick={() => onClick(item.id, "drink")}>
             <MdDeleteOutline />
           </button>
         </div>

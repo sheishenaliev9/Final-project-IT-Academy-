@@ -21,17 +21,19 @@ export const Cart: React.FC = () => {
     dispatch(clearCart(formData as ICartActions));
   };
 
-  const deleteFromCartFunc = (id: number) => {
+  const deleteFromCartFunc = (id: number, itemType: "dish" | "drink") => {
     const formData = new FormData();
     formData.append("person_id", "1");
     formData.append("action", "remove");
-    formData.append("dish_id", id.toString());
+    formData.append(`${itemType}_id`, id.toString());
 
     dispatch(deleteFromCart(formData as ICartActions));
     dispatch(getCart());
   };
 
-  if (!cart) return <Loader />;
+  if (!cart || !Array.isArray(cart)) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.cart}>
@@ -45,29 +47,31 @@ export const Cart: React.FC = () => {
               <div className={styles.cart__list__items}>
                 <div>
                   <h2>Блюда</h2>
-                  {cart &&
-                    cart.map((item) =>
-                      item.dishes.map((item) => (
-                        <CartDishes
-                          key={item.id}
-                          item={item}
-                          onClick={deleteFromCartFunc}
-                        />
-                      ))
-                    )}
+                  {cart.map((item) =>
+                    item.dishes && Array.isArray(item.dishes)
+                      ? item.dishes.map((dishItem) => (
+                          <CartDishes
+                            key={dishItem.id}
+                            item={dishItem}
+                            onClick={(id) => deleteFromCartFunc(id, "dish")}
+                          />
+                        ))
+                      : null
+                  )}
                 </div>
                 <div>
                   <h2>Напитки</h2>
-                  {cart &&
-                    cart.map((item) =>
-                      item.drinks.map((item) => (
-                        <CartDrinks
-                          key={item.id}
-                          item={item}
-                          onClick={deleteFromCartFunc}
-                        />
-                      ))
-                    )}
+                  {cart.map((item) =>
+                    item.drinks && Array.isArray(item.drinks)
+                      ? item.drinks.map((drinkItem) => (
+                          <CartDrinks
+                            key={drinkItem.id}
+                            item={drinkItem}
+                            onClick={(id) => deleteFromCartFunc(id, "drink")}
+                          />
+                        ))
+                      : null
+                  )}
                 </div>
               </div>
             </div>

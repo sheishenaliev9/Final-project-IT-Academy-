@@ -16,8 +16,8 @@ export const OneRestaurant: React.FC = () => {
   const { name, description, photo_1, address, tables, dishes, drinks } =
     restaurant;
 
-  useEffect(() => {
-    dispatch(getOneRestaurant(Number(id)));
+    useEffect(() => {
+      dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
 
 

@@ -1,3 +1,6 @@
+
+// ========================
+// User
 export interface IUserType {
   username: string;
   email?: string;
