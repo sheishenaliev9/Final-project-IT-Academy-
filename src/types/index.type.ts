@@ -1,4 +1,3 @@
-
 // ========================
 // User
 export interface IUserType {
@@ -62,7 +61,6 @@ export interface IRestaurantType {
 // ========================
 // Cart
 
-
 export interface ICartType {
   id: number;
   total_price: number;
@@ -78,3 +76,15 @@ export interface ICartActions {
   action?: string;
 }
 
+// ========================
+// Table
+
+export interface ITableType {
+  id: number;
+  number: number;
+  is_reserved: boolean;
+  reserved_time: null;
+  restaurant: number;
+  reserved_by: null;
+  dishes: IMenuType[];
+}

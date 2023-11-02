@@ -11,13 +11,11 @@ export const Restaurants: React.FC = () => {
   const dispatch = useAppDispatch();
   const { restaurants } = useAppSelector((state) => state.restaurants);
 
+  console.log(restaurants)
+
   useEffect(() => {
     dispatch(getRestaurants());
   }, [dispatch]);
-
-  if (!restaurants) {
-    return <Loader />;
-  }
 
   return (
     <div className={styles.restaurants}>

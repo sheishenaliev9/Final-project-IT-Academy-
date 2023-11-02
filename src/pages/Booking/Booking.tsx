@@ -11,9 +11,12 @@ export const Booking: React.FC = () => {
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { plan } = restaurant;
 
+
   useEffect(() => {
     dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
+
+  // const filteredTables = tables.filter(table => table.restaurant === Number(id));
 
   return (
     <div className={styles.booking}>
