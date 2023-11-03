@@ -16,25 +16,24 @@ export const OneRestaurant: React.FC = () => {
   const { name, description, photo_1, address, tables, dishes, drinks } =
     restaurant;
 
-    useEffect(() => {
-      dispatch(getOneRestaurant(Number(id)));
+  useEffect(() => {
+    dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
-
 
   const addToCartFunc = (item: IMenuType, type: string) => {
     const formData = new FormData();
     formData.append("person_id", "1");
+    if (id) formData.append("restaurant_id", id.toString());
     formData.append("action", "update");
     if (type === "dish") {
       formData.append("dish_id", item.id.toString());
     } else if (type === "drink") {
       formData.append("drink_id", item.id.toString());
     }
-  
+
     dispatch(addToCart(formData as ICartActions));
   };
 
-  
   return (
     <div className={styles.restaurant}>
       <div className="container">

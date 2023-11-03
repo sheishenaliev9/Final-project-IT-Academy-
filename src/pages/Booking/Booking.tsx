@@ -1,19 +1,43 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getOneRestaurant } from "../../store";
+import { getOneRestaurant, getUserInfo, reserveTable } from "../../store";
 import styles from "./Booking.module.scss";
 import { CButton, CInput, TableList } from "../../components";
+import { useForm } from "react-hook-form";
 
 export const Booking: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const { register, handleSubmit } = useForm();
   const { restaurant } = useAppSelector((state) => state.restaurants);
-  const { plan } = restaurant;
+  const { tableNumber, tableId } = useAppSelector((state) => state.tables);
+  const { userInfo } = useAppSelector((state) => state.users);
+  const { plan, viewbox } = restaurant;
 
   useEffect(() => {
     dispatch(getOneRestaurant(Number(id)));
+    dispatch(getUserInfo());
   }, [dispatch, id]);
+
+  const onSubmit = (values) => {
+    const { date, time } = values;
+
+    // Combine date and time and format it as needed
+    const dateTimeString = `${date}T${time}:00.000Z`;
+
+    // Update the values before dispatching
+    const updatedData = {
+      ...values,
+      id: tableId,
+      reserved_by: userInfo.id,
+      reserved_time: dateTimeString,
+      is_reserved: true,
+      number: Number(tableNumber),
+    };
+
+    dispatch(reserveTable(updatedData));
+  };
 
   return (
     <div className={styles.booking}>
@@ -26,31 +50,43 @@ export const Booking: React.FC = () => {
 
           <div className={styles.booking__block}>
             <div className={styles.booking__image}>
-              <TableList id={Number(id)} />
+              <TableList id={Number(id)} viewbox={viewbox} />
               <img src={plan} alt="" />
             </div>
 
             <div className={styles.booking__form}>
               <h2>Оформить бронь:</h2>
-              <form action="">
-                <label htmlFor="name">
-                  <p>Имя:</p>
-                  <CInput id="name" type="text" placeholder="Ваше имя" />
-                </label>
-                <label htmlFor="phone">
-                  <p>Имя:</p>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <label htmlFor="number">
+                  <p>Телефон:</p>
                   <CInput
-                    id="phone"
+                    id="number"
                     type="text"
-                    placeholder="Ваш номер телефона"
+                    value={tableNumber}
+                    placeholder="Номер стола"
+                    {...register("number")}
                   />
                 </label>
                 <label htmlFor="time">
                   <p>Время:</p>
-                  <CInput id="time" type="time" placeholder="Желаемое время" />
+                  <CInput
+                    id="time"
+                    type="time"
+                    placeholder="Желаемое время"
+                    {...register("time")}
+                  />
+                </label>
+                <label htmlFor="date">
+                  <p>Дата:</p>
+                  <CInput
+                    id="date"
+                    type="date"
+                    placeholder="Желаемая дата"
+                    {...register("date")}
+                  />
                 </label>
 
-                <CButton>Забронировать</CButton>
+                <CButton type="submit">Забронировать</CButton>
               </form>
             </div>
           </div>

@@ -22,6 +22,7 @@ export interface IPersonType {
   photo: string | null;
   user: number;
   tg_id: string;
+  tg_code: string;
 }
 
 // ========================
@@ -55,6 +56,7 @@ export interface IRestaurantType {
   address: string;
   plan: string;
   owner: number;
+  viewbox: string;
   type: number[];
 }
 
@@ -80,12 +82,12 @@ export interface ICartActions {
 // Table
 
 export interface ITableType {
-  id: number;
+  id?: number;
   number: number;
   is_reserved: boolean;
   reserved_time: null;
   restaurant: number;
   reserved_by: null;
-  d: string;
-  dishes: IMenuType[];
+  d?: string;
+  dishes?: IMenuType[];
 }

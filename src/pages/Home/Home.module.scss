@@ -13,7 +13,7 @@
       justify-content: space-between;
       align-items: center;
 
-      .home__block_title {
+      .home__title {
         width: 50%;
         display: flex;
         flex-direction: column;
@@ -26,6 +26,29 @@
         p {
           color: #ccc;
           font-size: 18px;
+        }
+
+        a {
+          button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            background: #32b768;
+            color: #fff;
+            font-size: 18px;
+
+            border: 2px solid #32b768;
+            padding: 10px 23px;
+            border-radius: 5px;
+            transition: .3s;
+
+            &:hover {
+              color: #32b768;
+              background-color: transparent;
+              border: 2px solid #32b768;
+            }
+          }
         }
       }
 
@@ -51,7 +74,7 @@
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        transition: .4s;
+        transition: 0.4s;
 
         &:nth-child(2) {
           border: none;

@@ -4,16 +4,27 @@ import { ITableType } from "../../types/index.type";
 
 interface ITableState {
   tables: ITableType[];
+  tableNumber: number;
+  tableId: number;
 }
 
 const initialState: ITableState = {
   tables: [],
+  tableNumber: 0,
+  tableId: 0
 };
 
 export const tablesSlice = createSlice({
   name: "tables",
   initialState,
-  reducers: {},
+  reducers: {
+    setTableId: (state, { payload }: PayloadAction<number>) => {
+      state.tableId = payload;
+    },
+    setTableNumber: (state, { payload }: PayloadAction<number>) => {
+      state.tableNumber = payload;
+    }
+  },
   extraReducers: {
     [getTables.fulfilled.type]: (
       state,
@@ -23,3 +34,5 @@ export const tablesSlice = createSlice({
     },
   },
 });
+
+export const { setTableId, setTableNumber } = tablesSlice.actions;

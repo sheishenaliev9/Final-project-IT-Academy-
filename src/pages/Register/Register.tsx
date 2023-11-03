@@ -3,10 +3,10 @@ import { CButton, CInput } from "../../components";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import styles from "./Register.module.scss";
 import { registerUser } from "../../store";
 import { IUserType } from "../../types/index.type";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import styles from "./Register.module.scss";
 
 export const Register: React.FC = () => {
   const [eye, setEye] = useState<boolean>(false);

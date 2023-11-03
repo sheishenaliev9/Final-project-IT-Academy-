@@ -22,6 +22,7 @@ export const Profile: React.FC = () => {
     navigate("/registration");
   };
 
+
   const handleChangeData = (values: IPersonType) => {
     const dataToSend = { ...values, user };
 

@@ -1,16 +1,14 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getTables } from "../../store";
+import { getTables, setTableId, setTableNumber } from "../../store";
 import { ITableType } from "../../types/index.type";
-
-const viewbox8: string = "0 0 2240 1340";
-const viewbox6: string = "0 0 1680 1184";
 
 interface ITableListProps {
   id: number;
+  viewbox: string;
 }
 
-export const TableList: React.FC<ITableListProps> = ({ id }) => {
+export const TableList: React.FC<ITableListProps> = ({ id, viewbox }) => {
   const dispatch = useAppDispatch();
   const { tables } = useAppSelector((state) => state.tables);
 
@@ -20,11 +18,9 @@ export const TableList: React.FC<ITableListProps> = ({ id }) => {
 
   const filteredTables = tables.filter((table) => table.restaurant === id);
 
-  console.log(filteredTables);
-
   return (
     <div>
-      <svg viewBox={id === 8 ? viewbox8 : viewbox6}>
+      <svg viewBox={viewbox}>
         {filteredTables &&
           filteredTables.map((table) => <Table key={table.id} table={table} />)}
       </svg>
@@ -37,14 +33,17 @@ interface ITableProps {
 }
 
 export const Table: React.FC<ITableProps> = ({ table }) => {
-  if (!table.d) {
-    console.error("Invalid or missing path data (table.d)");
-    return null;
+  const dispatch = useAppDispatch();
+
+  const setTableData = () => {
+    dispatch(setTableId(Number(table.id)))
+    dispatch(setTableNumber(Number(table.number)))
   }
 
   return (
     <path
       style={table.is_reserved ? { fill: "red" } : { fill: "green" }}
+      onClick={setTableData}
       d={table.d}
     />
   );
