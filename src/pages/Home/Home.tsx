@@ -6,6 +6,20 @@ import preorderImg from "../../assets/preorder.svg";
 import timeImg from "../../assets/timeImg.svg";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import styles from "./Home.module.scss";
+import { motion } from "framer-motion";
+
+const textAnimation = {
+  hidden: {
+    x: -100,
+    opacity: 0,
+  },
+
+  visible: (custom: number) => ({
+    x: 0,
+    opacity: 1,
+    transition: { delay: custom * 0.2 },
+  }),
+};
 
 const imageBlocks = [
   { src: foodImg, alt: "food-image" },
@@ -18,26 +32,38 @@ const HomeBlock: React.FC<{
   title: string;
   text: string;
   imageIndex: number;
-}> = ({ title, text, imageIndex }) => (
-  <div>
-    <img src={imageBlocks[imageIndex].src} alt={imageBlocks[imageIndex].alt} />
-    <h3>{title}</h3>
-    <p>{text}</p>
-  </div>
+  custom: number;
+}> = ({ title, text, imageIndex, custom }) => (
+  <motion.div initial="hidden" whileInView="visible">
+    <motion.img
+      custom={custom}
+      variants={textAnimation}
+      src={imageBlocks[imageIndex].src}
+      alt={imageBlocks[imageIndex].alt}
+    />
+    <motion.h3 custom={custom} variants={textAnimation}>
+      {title}
+    </motion.h3>
+    <motion.p custom={custom} variants={textAnimation}>
+      {text}
+    </motion.p>
+  </motion.div>
 );
 
 export const Home: React.FC = () => {
   return (
-    <div className={styles.home}>
+    <motion.div initial="hidden" whileInView="visible" className={styles.home}>
       <div className="container">
         <div className={styles.home__inner}>
           <div className={styles.home__title_block}>
             <div className={styles.home__title}>
-              <h1>Бронируйте стол и заказывайте онлайн</h1>
-              <p>
+              <motion.h1 custom={1} variants={textAnimation}>
+                Бронируйте стол и заказывайте онлайн
+              </motion.h1>
+              <motion.p custom={2} variants={textAnimation}>
                 Для вашего комфорта предлагаем предварительное бронирование
                 столиков и предзаказ блюд. Выбери ресторан быстро и удобно!
-              </p>
+              </motion.p>
               <Link to="/restaurants">
                 <button>
                   Рестораны <AiOutlineArrowRight />
@@ -53,20 +79,23 @@ export const Home: React.FC = () => {
               title="Закажи еду заранее"
               text="Закажи еду заранее и наслаждайся вкусом без ожидания. Удобно, быстро, вкусно!"
               imageIndex={1}
+              custom={1}
             />
             <HomeBlock
               title="Забронируй столик онлайн"
               text="Резервируйте свой столик прямо сейчас – делайте ваш вечер особенным!"
               imageIndex={2}
+              custom={2}
             />
             <HomeBlock
               title="Все быстро и удобно"
               text="Отличное обслуживание, быстрые заказы и удобная атмосфера. Приходите и наслаждайтесь."
               imageIndex={3}
+              custom={3}
             />
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

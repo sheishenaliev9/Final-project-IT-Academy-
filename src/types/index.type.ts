@@ -91,3 +91,13 @@ export interface ITableType {
   d?: string;
   dishes?: IMenuType[];
 }
+
+export interface IReserveTableType {
+  number: string | number;
+  time: string;
+  date: string;
+  id?: number;
+  reserved_by?: number,
+  reserved_time?: string,
+  is_reserved?: boolean,
+}

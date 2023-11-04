@@ -3,14 +3,15 @@ import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { getOneRestaurant, getUserInfo, reserveTable } from "../../store";
 import styles from "./Booking.module.scss";
-import { CButton, CInput, TableList } from "../../components";
-import { useForm } from "react-hook-form";
-
+import { CButton, CInput, Loader, TableList } from "../../components";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { IReserveTableType } from "../../types/index.type";
 
 export const Booking: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<IReserveTableType>();
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { tableNumber, tableId } = useAppSelector((state) => state.tables);
   const { userInfo } = useAppSelector((state) => state.users);
@@ -21,12 +22,12 @@ export const Booking: React.FC = () => {
     dispatch(getUserInfo());
   }, [dispatch, id]);
 
-  const onSubmit = (values) => {
+  const onSubmit: SubmitHandler<IReserveTableType> = (values) => {
     const { date, time } = values;
 
     const dateTimeString = `${date}T${time}:00.000Z`;
 
-    const updatedData = {
+    const updatedData: IReserveTableType = {
       ...values,
       id: tableId,
       reserved_by: userInfo.id,
@@ -36,7 +37,10 @@ export const Booking: React.FC = () => {
     };
 
     dispatch(reserveTable(updatedData));
+    toast.success(`Вы забронировали столик номер ${tableId}`);
   };
+
+  if (!plan || !restaurant) return <Loader />;
 
   return (
     <div className={styles.booking}>
@@ -50,7 +54,7 @@ export const Booking: React.FC = () => {
           <div className={styles.booking__block}>
             <div className={styles.booking__image}>
               <TableList id={Number(id)} viewbox={viewbox} />
-              <img src={plan} alt="" />
+              <img src={plan} alt="tables map" />
             </div>
 
             <div className={styles.booking__form}>

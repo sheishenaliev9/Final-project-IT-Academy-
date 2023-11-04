@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ITableType } from "../../types/index.type";
+import { IReserveTableType } from "../../types/index.type";
+
+
 
 export const getTables = createAsyncThunk("getTables", async () => {
   try {
@@ -23,23 +25,26 @@ export const getTables = createAsyncThunk("getTables", async () => {
   }
 });
 
-export const reserveTable = createAsyncThunk("reserveTable", async (values: ITableType, { dispatch }) => {
-  try {
-    await axios.patch(
-      `${import.meta.env.VITE_RESTO_URL}/table/${values.id}/`,
-      values,
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
-        },
-      }
-    );
+export const reserveTable = createAsyncThunk(
+  "reserveTable",
+  async (values: IReserveTableType, { dispatch }) => {
+    try {
+      await axios.patch(
+        `${import.meta.env.VITE_RESTO_URL}/table/${values.id}/`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+          },
+        }
+      );
       dispatch(getTables());
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
-    } else {
-      console.log(error);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error);
+      }
     }
   }
-});
+);

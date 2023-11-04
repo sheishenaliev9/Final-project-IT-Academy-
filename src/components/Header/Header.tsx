@@ -3,10 +3,11 @@ import { TbToolsKitchen2 } from "react-icons/tb";
 import { FaUserAlt } from "react-icons/fa";
 import { BiCartAlt } from "react-icons/bi";
 import styles from "./Header.module.scss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleProfileClick = () => {
     const token = localStorage.getItem("token");
@@ -14,28 +15,43 @@ export const Header: React.FC = () => {
     if (token) return navigate("/profile");
     else return navigate("/registration");
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.onscroll = handleScroll;
+  }, []);
+
   return (
-    <header className={styles.header}>
-      <div className="container">
-        <div className={styles.header__inner}>
-          <div className="logo">
-            <Link to="/">
-              <TbToolsKitchen2 />
-            </Link>
-          </div>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ""}`}>
+      <div
+        className={`${styles.header__inner} ${
+          isScrolled ? styles.scrolledInner : ""
+        }`}
+      >
+        <div className="logo">
+          <Link to="/">
+            <TbToolsKitchen2 />
+          </Link>
+        </div>
 
-          <nav className={styles.header__nav}>
+        <nav className={styles.header__nav}>
           <Link to="/">Главная</Link>
-            <Link to="/restaurants">Рестораны</Link>
-            <Link to="/contacts">Контакты</Link>
-          </nav>
+          <Link to="/restaurants">Рестораны</Link>
+          <Link to="/contacts">Контакты</Link>
+        </nav>
 
-          <div className={styles.header__profile}>
-            <Link to="/cart">
-              <BiCartAlt />
-            </Link>
-            <FaUserAlt onClick={handleProfileClick} />
-          </div>
+        <div className={styles.header__profile}>
+          <Link to="/cart">
+            <BiCartAlt />
+          </Link>
+          <FaUserAlt onClick={handleProfileClick} />
         </div>
       </div>
     </header>

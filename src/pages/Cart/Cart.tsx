@@ -48,7 +48,9 @@ export const Cart: React.FC = () => {
                 <div>
                   <h2>Блюда</h2>
                   {cart.map((item) =>
-                    item.dishes && Array.isArray(item.dishes)
+                    item.dishes &&
+                    Array.isArray(item.dishes) &&
+                    item.drinks.length > 0
                       ? item.dishes.map((dishItem) => (
                           <CartDishes
                             key={dishItem.id}
@@ -56,13 +58,15 @@ export const Cart: React.FC = () => {
                             onClick={(id) => deleteFromCartFunc(id, "dish")}
                           />
                         ))
-                      : null
+                      : <h2>В корзине нет блюд</h2>
                   )}
                 </div>
                 <div>
                   <h2>Напитки</h2>
                   {cart.map((item) =>
-                    item.drinks && Array.isArray(item.drinks)
+                    item.drinks &&
+                    Array.isArray(item.drinks) &&
+                    item.drinks.length > 0
                       ? item.drinks.map((drinkItem) => (
                           <CartDrinks
                             key={drinkItem.id}
@@ -70,7 +74,7 @@ export const Cart: React.FC = () => {
                             onClick={(id) => deleteFromCartFunc(id, "drink")}
                           />
                         ))
-                      : null
+                      : <h2>В корзине нет напитков</h2>
                   )}
                 </div>
               </div>

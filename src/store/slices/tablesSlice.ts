@@ -6,12 +6,14 @@ interface ITableState {
   tables: ITableType[];
   tableNumber: number;
   tableId: number;
+  selectedTableId: number;
 }
 
 const initialState: ITableState = {
   tables: [],
   tableNumber: 0,
   tableId: 0,
+  selectedTableId: 0,
 };
 
 export const tablesSlice = createSlice({
@@ -23,7 +25,10 @@ export const tablesSlice = createSlice({
     },
     setTableNumber: (state, { payload }: PayloadAction<number>) => {
       state.tableNumber = payload;
-    }
+    },
+    setSelectedTableId: (state, action) => {
+      state.selectedTableId = action.payload;
+    },
   },
   extraReducers: {
     [getTables.fulfilled.type]: (
@@ -35,4 +40,4 @@ export const tablesSlice = createSlice({
   },
 });
 
-export const { setTableId, setTableNumber } = tablesSlice.actions;
+export const { setTableId, setTableNumber, setSelectedTableId } = tablesSlice.actions;
