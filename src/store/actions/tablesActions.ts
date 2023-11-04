@@ -23,7 +23,7 @@ export const getTables = createAsyncThunk("getTables", async () => {
   }
 });
 
-export const reserveTable = createAsyncThunk("reserveTable", async (values: ITableType) => {
+export const reserveTable = createAsyncThunk("reserveTable", async (values: ITableType, { dispatch }) => {
   try {
     await axios.patch(
       `${import.meta.env.VITE_RESTO_URL}/table/${values.id}/`,
@@ -34,6 +34,7 @@ export const reserveTable = createAsyncThunk("reserveTable", async (values: ITab
         },
       }
     );
+      dispatch(getTables());
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log(error.response?.data);

@@ -6,6 +6,7 @@ import styles from "./Booking.module.scss";
 import { CButton, CInput, TableList } from "../../components";
 import { useForm } from "react-hook-form";
 
+
 export const Booking: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
@@ -23,10 +24,8 @@ export const Booking: React.FC = () => {
   const onSubmit = (values) => {
     const { date, time } = values;
 
-    // Combine date and time and format it as needed
     const dateTimeString = `${date}T${time}:00.000Z`;
 
-    // Update the values before dispatching
     const updatedData = {
       ...values,
       id: tableId,

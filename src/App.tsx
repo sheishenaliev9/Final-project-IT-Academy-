@@ -12,6 +12,8 @@ import {
   Restaurants,
 } from "./pages";
 import { PrivateRoute } from "./components";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./App.scss";
 
 const App: React.FC = () => {
@@ -36,6 +38,8 @@ const App: React.FC = () => {
           <Route path="/booking/:id" element={<Booking />} />
         </Route>
       </Routes>
+
+      <ToastContainer />
     </div>
   );
 };

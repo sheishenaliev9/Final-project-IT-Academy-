@@ -11,7 +11,7 @@ interface ITableState {
 const initialState: ITableState = {
   tables: [],
   tableNumber: 0,
-  tableId: 0
+  tableId: 0,
 };
 
 export const tablesSlice = createSlice({
