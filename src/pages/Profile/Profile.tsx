@@ -6,7 +6,8 @@ import { CButton, Loader } from "../../components";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { IPersonType } from "../../types/index.type";
-import { HiOutlineLogout } from "react-icons/hi";
+import { HiOutlineLogout, HiMail } from "react-icons/hi";
+import { BsTelephoneFill } from "react-icons/bs";
 import styles from "./Profile.module.scss";
 
 export const Profile: React.FC = () => {
@@ -21,7 +22,6 @@ export const Profile: React.FC = () => {
     localStorage.removeItem("token");
     navigate("/registration");
   };
-
 
   const handleChangeData = (values: IPersonType) => {
     const dataToSend = { ...values, user };
@@ -49,56 +49,64 @@ export const Profile: React.FC = () => {
     <div className={styles.profile}>
       <div className="container">
         <div className={styles.profile__inner}>
-          <div className={styles.profile__user}>
-            <h2>Профиль</h2>
-
-            <div className={styles.profile__avatar}>
-              {photo ? <img src={photo} alt="" /> : <RxAvatar />}
-            </div>
-
-            <div className={styles.profile__title}>
-              <p>Имя</p>
-              <input
-                type="text"
-                defaultValue={name}
-                disabled={isDisabled}
-                {...register("name")}
-              />
-              <p>Почта</p>
-              <input
-                type="email"
-                defaultValue={email}
-                disabled={isDisabled}
-                {...register("email")}
-              />
-              <p>Номер</p>
-              <input
-                type="text"
-                defaultValue={number}
-                disabled={isDisabled}
-                {...register("number")}
-              />
-            </div>
-
-            <div className={styles.profile__actions}>
-              {isDisabled ? (
-                <CButton onClick={() => setIsDisabled(!isDisabled)}>
-                  Редактировать
-                </CButton>
-              ) : (
-                <CButton onClick={handleSubmit(handleChangeData)}>
-                  Сохранить
-                </CButton>
-              )}
-              <button className={styles.actions__logOut} onClick={handleLogOut}>
-                Выйти <HiOutlineLogout />
-              </button>
-            </div>
+          <div className={styles.profile__inner__title}>
+            <h1>Профиль</h1>
           </div>
+          <div className={styles.profile__block}>
+            <div className={styles.profile__user}>
+              <div className={styles.profile__avatar}>
+                {photo ? <img src={photo} alt="" /> : <RxAvatar size={106} />}
+              </div>
 
-          <div className={styles.profile__order}>
-            <h2>Ваш заказ</h2>
-            <h3>На данный момент нет брони</h3>
+              <div className={styles.profile__info}>
+                <input
+                  type="text"
+                  defaultValue={name}
+                  disabled={isDisabled}
+                  {...register("name")}
+                />
+                <div>
+                  <BsTelephoneFill />
+                  <input
+                    type="email"
+                    defaultValue={email}
+                    disabled={isDisabled}
+                    {...register("email")}
+                  />
+                </div>
+                <div>
+                  <HiMail />
+                  <input
+                    type="text"
+                    defaultValue={number}
+                    disabled={isDisabled}
+                    {...register("number")}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.profile__actions}>
+                {isDisabled ? (
+                  <CButton onClick={() => setIsDisabled(!isDisabled)}>
+                    Редактировать
+                  </CButton>
+                ) : (
+                  <CButton onClick={handleSubmit(handleChangeData)}>
+                    Сохранить
+                  </CButton>
+                )}
+                <button
+                  className={styles.actions__logOut}
+                  onClick={handleLogOut}
+                >
+                  Выйти <HiOutlineLogout />
+                </button>
+              </div>
+            </div>
+            <div className={styles.profile__order}>
+              <h2>Ваш заказ</h2>
+              <h3>На данный момент нет брони</h3>
+            </div>
           </div>
         </div>
       </div>

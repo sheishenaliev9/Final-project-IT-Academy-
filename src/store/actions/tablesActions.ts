@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IReserveTableType } from "../../types/index.type";
+import { toast } from "react-toastify";
 
 
 
@@ -38,10 +39,12 @@ export const reserveTable = createAsyncThunk(
           },
         }
       );
+    toast.success(`Вы забронировали столик номер ${values.id}`);
       dispatch(getTables());
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
+        toast.error("Вы не выбрали столик.")
       } else {
         console.log(error);
       }

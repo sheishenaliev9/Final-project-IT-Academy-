@@ -76,6 +76,7 @@ export interface ICartActions {
   dish_id?: string;
   drink_id?: string;
   action?: string;
+  table_id?: string
 }
 
 // ========================

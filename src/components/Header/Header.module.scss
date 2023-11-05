@@ -1,11 +1,11 @@
 .header {
   width: 100%;
-  padding: 34px 0;
+  padding: 24px 0;
   margin: 0 auto;
   position: sticky;
   top: 0;
   z-index: 10;
-  transition: .5s;
+  transition: 0.5s;
 
   &.scrolled {
     padding-top: 0 !important;
@@ -27,10 +27,11 @@
     &.scrolledInner {
       width: 100% !important;
       border-radius: 0px !important;
+      padding: 25px 0 !important;
     }
 
     .header__nav {
-      min-width: 40%;
+      width: 400px;
       display: flex;
       align-items: center;
       justify-content: space-between;

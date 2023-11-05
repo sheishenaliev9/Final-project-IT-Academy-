@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ICartActions } from "../../types/index.type";
 
-
 export const getCart = createAsyncThunk("getCart", async () => {
   try {
     const { data } = await axios.get(
@@ -51,7 +50,7 @@ export const addToCart = createAsyncThunk(
 
 export const clearCart = createAsyncThunk(
   "deleteFromCart",
-  async (values: ICartActions) => {
+  async (values: ICartActions, { dispatch }) => {
     try {
       await axios.post(
         `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
@@ -62,6 +61,7 @@ export const clearCart = createAsyncThunk(
           },
         }
       );
+      dispatch(getCart());
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
@@ -74,12 +74,36 @@ export const clearCart = createAsyncThunk(
 
 export const deleteFromCart = createAsyncThunk(
   "deleteFromCart",
-  async (values: ICartActions) => {
+  async (values: ICartActions, { dispatch }) => {
     try {
       await axios.post(
         `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
         values,
         { headers: { Authorization: `Bearer ${import.meta.env.VITE_TOKEN}` } }
+      );
+      dispatch(getCart());
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data);
+      } else {
+        console.log(error);
+      }
+    }
+  }
+);
+
+export const addCartToTable = createAsyncThunk(
+  "addCartToTable",
+  async (values: ICartActions) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_RESTO_URL}/cart_update/`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_TOKEN}`,
+          },
+        }
       );
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getOneRestaurant, getUserInfo, reserveTable } from "../../store";
+import {
+  addCartToTable,
+  getOneRestaurant,
+  getUserInfo,
+  reserveTable,
+} from "../../store";
 import styles from "./Booking.module.scss";
 import { CButton, CInput, Loader, TableList } from "../../components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { IReserveTableType } from "../../types/index.type";
+import { ICartActions, IReserveTableType } from "../../types/index.type";
 
 export const Booking: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IReserveTableType>();
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { tableNumber, tableId } = useAppSelector((state) => state.tables);
@@ -36,8 +42,24 @@ export const Booking: React.FC = () => {
       number: Number(tableNumber),
     };
 
+    const token = localStorage.getItem("token");
+
+    if (token === null) return navigate("/registration");
+
     dispatch(reserveTable(updatedData));
-    toast.success(`Вы забронировали столик номер ${tableId}`);
+  };
+
+  const addCartToTableFunc = () => {
+    const formData = new FormData();
+    formData.append("person_id", "17");
+    formData.append("table_id", tableId.toString());
+    formData.append("action", "transfer");
+
+    if (tableId === 0) {
+      toast.error("Выберите стол для бронирования.");
+    }
+
+    dispatch(addCartToTable(formData as ICartActions));
   };
 
   if (!plan || !restaurant) return <Loader />;
@@ -91,6 +113,11 @@ export const Booking: React.FC = () => {
 
                 <CButton type="submit">Забронировать</CButton>
               </form>
+              <div className={styles.booking__form__actions}>
+                <CButton onClick={addCartToTableFunc}>
+                  Добавить блюдо с корзины
+                </CButton>
+              </div>
             </div>
           </div>
         </div>

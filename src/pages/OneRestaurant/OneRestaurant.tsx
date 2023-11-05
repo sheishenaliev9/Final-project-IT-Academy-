@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { addToCart, getOneRestaurant } from "../../store";
 import { Loader } from "../../components";
 import styles from "./OneRestaurant.module.scss";
@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 export const OneRestaurant: React.FC = () => {
   const dispatch = useAppDispatch();
   const { restaurant } = useAppSelector((state) => state.restaurants);
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { name, description, photo_1, address, tables, dishes, drinks } =
@@ -22,7 +23,7 @@ export const OneRestaurant: React.FC = () => {
 
   const addToCartFunc = (item: IMenuType, type: string) => {
     const formData = new FormData();
-    formData.append("person_id", "1");
+    formData.append("person_id", "17");
     if (id) formData.append("restaurant_id", id.toString());
     formData.append("action", "update");
     if (type === "dish") {
@@ -31,8 +32,14 @@ export const OneRestaurant: React.FC = () => {
       formData.append("drink_id", item.id.toString());
     }
 
+    const token = localStorage.getItem("token");
+
+    if (token === null) return navigate("/registration");
+
     dispatch(addToCart(formData as ICartActions));
   };
+
+  if(restaurant.id.toString() !== id) return <Loader/>
 
   return (
     <div className={styles.restaurant}>
