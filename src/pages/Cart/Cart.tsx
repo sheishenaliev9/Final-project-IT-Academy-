@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {  clearCart, deleteFromCart, getCart } from "../../store";
+import { clearCart, deleteFromCart, getCart } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { CartDishes, CartDrinks, Loader } from "../../components";
 import { ICartActions } from "../../types/index.type";
@@ -47,7 +47,9 @@ export const Cart: React.FC = () => {
                 <div>
                   <h2>Блюда</h2>
                   {cart.map((item) =>
-                    item.dishes && Array.isArray(item.dishes) ? (
+                    item.dishes &&
+                    Array.isArray(item.dishes) &&
+                    item.dishes.length > 0 ? (
                       item.dishes.map((dishItem) => (
                         <CartDishes
                           key={dishItem.id}
@@ -63,7 +65,9 @@ export const Cart: React.FC = () => {
                 <div>
                   <h2>Напитки</h2>
                   {cart.map((item) =>
-                    item.drinks && Array.isArray(item.drinks) ? (
+                    item.drinks &&
+                    Array.isArray(item.drinks) &&
+                    item.drinks.length > 0 ? (
                       item.drinks.map((drinkItem) => (
                         <CartDrinks
                           key={drinkItem.id}

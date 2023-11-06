@@ -3,8 +3,6 @@ import axios from "axios";
 import { IReserveTableType } from "../../types/index.type";
 import { toast } from "react-toastify";
 
-
-
 export const getTables = createAsyncThunk("getTables", async () => {
   try {
     const { data } = await axios.get(
@@ -30,7 +28,7 @@ export const reserveTable = createAsyncThunk(
   "reserveTable",
   async (values: IReserveTableType, { dispatch }) => {
     try {
-      await axios.patch(
+      const { data } = await axios.patch(
         `${import.meta.env.VITE_RESTO_URL}/table/${values.id}/`,
         values,
         {
@@ -39,12 +37,17 @@ export const reserveTable = createAsyncThunk(
           },
         }
       );
-    toast.success(`Вы забронировали столик номер ${values.id}`);
-      dispatch(getTables());
+      console.log(values);
+      if (!data.is_reserved) {
+        return toast.error("Вы не можете забронировать больше 2 столов.");
+      } else {
+        toast.success(`Вы забронировали столик номер ${values.number}`);
+        dispatch(getTables());
+      }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);
-        toast.error("Вы не выбрали столик.")
+        toast.error("Что-то пошло не так.");
       } else {
         console.log(error);
       }

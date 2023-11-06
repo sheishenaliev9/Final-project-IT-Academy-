@@ -56,13 +56,13 @@
 
           .item {
             width: 30%;
-            min-height: 500px;
+            min-height: 400px;
 
             display: flex;
             flex-direction: column;
             gap: 15px;
 
-            padding: 30px;
+            padding: 10px 20px;
             background: #f3f3f3;
             border: 2px solid #4a4e69;
             border-radius: 20px;
@@ -72,6 +72,12 @@
             &:hover {
               background-color: transparent;
               border: 2px solid #32b768;
+
+              .item__title {
+                h3 {
+                  color: #32b768;
+                }
+              }
             }
 
             .item__image {
@@ -79,7 +85,7 @@
               justify-content: center;
               height: 30%;
               img {
-                width: 90%;
+                width: 80%;
               }
             }
 
@@ -89,6 +95,7 @@
               height: 120px;
               gap: 7px;
               h3 {
+                transition: .3s;
                 color: #4a4e69;
                 font-weight: 700;
               }
@@ -108,6 +115,7 @@
 
               .item__actions {
                 display: flex;
+                align-items: center;
                 gap: 10px;
 
                 button {

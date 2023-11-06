@@ -1,25 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import foodImg from "../../assets/foodImg.svg";
 import tableImg from "../../assets/table.svg";
 import preorderImg from "../../assets/preorder.svg";
 import timeImg from "../../assets/timeImg.svg";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import styles from "./Home.module.scss";
 import { motion } from "framer-motion";
-
-const textAnimation = {
-  hidden: {
-    x: -100,
-    opacity: 0,
-  },
-
-  visible: (custom: number) => ({
-    x: 0,
-    opacity: 1,
-    transition: { delay: custom * 0.2 },
-  }),
-};
+import { textAnimation } from "../../animation";
+import styles from "./Home.module.scss";
 
 const imageBlocks = [
   { src: foodImg, alt: "food-image" },
@@ -51,6 +39,10 @@ const HomeBlock: React.FC<{
 );
 
 export const Home: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <motion.div initial="hidden" whileInView="visible" className={styles.home}>
       <div className="container">

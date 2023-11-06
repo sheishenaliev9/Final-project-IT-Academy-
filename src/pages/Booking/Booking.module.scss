@@ -3,9 +3,21 @@
   margin: 70px 0;
   
   .booking__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     .booking__title {
+      padding: 20px 0;
+      border-bottom: 2px solid #32b768;
       h1 {
+        font-size: 38px;
         color: #32b768;
+      }
+      
+      p {
+        width: 50%;
+        color: #4a4e69;
+        font-weight: 700;
       }
     }
 

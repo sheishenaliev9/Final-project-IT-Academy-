@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ICartActions } from "../../types/index.type";
+import { toast } from "react-toastify";
 
 export const getCart = createAsyncThunk("getCart", async () => {
   try {
@@ -37,6 +38,7 @@ export const addToCart = createAsyncThunk(
         }
       );
 
+      toast.success("Блюдо добавлено в корзину.");
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -61,6 +63,7 @@ export const clearCart = createAsyncThunk(
           },
         }
       );
+      toast.success("Корзина успешно очистилась!");
       dispatch(getCart());
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -81,6 +84,7 @@ export const deleteFromCart = createAsyncThunk(
         values,
         { headers: { Authorization: `Bearer ${import.meta.env.VITE_TOKEN}` } }
       );
+      toast.success("Успешно удалено!");
       dispatch(getCart());
     } catch (error) {
       if (axios.isAxiosError(error)) {

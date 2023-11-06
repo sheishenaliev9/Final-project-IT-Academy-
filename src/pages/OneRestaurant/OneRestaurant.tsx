@@ -18,6 +18,7 @@ export const OneRestaurant: React.FC = () => {
     restaurant;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getOneRestaurant(Number(id)));
   }, [dispatch, id]);
 
@@ -39,7 +40,8 @@ export const OneRestaurant: React.FC = () => {
     dispatch(addToCart(formData as ICartActions));
   };
 
-  if(restaurant.id.toString() !== id) return <Loader/>
+  if (!restaurant || !photo_1 || !dishes || !drinks) return <Loader />;
+
 
   return (
     <div className={styles.restaurant}>
@@ -133,7 +135,7 @@ export const MenuItem: React.FC<IMenuProps> = ({ item, onAddToCart }) => {
         <div className={styles.item__actions}>
           <p>{price} с</p>
           <button onClick={() => onAddToCart(item, type.toString())}>
-            <BiCartAdd />
+            <BiCartAdd size={28} />
           </button>
         </div>
       </div>

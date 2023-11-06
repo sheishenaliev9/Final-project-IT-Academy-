@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+body {
+  scroll-behavior: smooth;
+}
+
 .container {
   width: 1240px;
   margin: 0 auto;
@@ -45,14 +49,12 @@ pre {
   font-style: normal;
 }
 
-
 .logo {
   svg {
     font-size: 26px;
     color: #32b768;
   }
 }
-
 
 .loader {
   display: flex;

@@ -66,7 +66,7 @@ export const Profile: React.FC = () => {
                   {...register("name")}
                 />
                 <div>
-                  <BsTelephoneFill />
+                  <HiMail />
                   <input
                     type="email"
                     defaultValue={email}
@@ -75,7 +75,7 @@ export const Profile: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <HiMail />
+                  <BsTelephoneFill />
                   <input
                     type="text"
                     defaultValue={number}

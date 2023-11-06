@@ -7,23 +7,30 @@ import {
   getUserInfo,
   reserveTable,
 } from "../../store";
-import styles from "./Booking.module.scss";
 import { CButton, CInput, Loader, TableList } from "../../components";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { ICartActions, IReserveTableType } from "../../types/index.type";
+import { toast } from "react-toastify";
+import { textAnimation } from "../../animation";
+import { motion } from "framer-motion";
+import styles from "./Booking.module.scss";
 
 export const Booking: React.FC = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm<IReserveTableType>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IReserveTableType>();
   const { restaurant } = useAppSelector((state) => state.restaurants);
   const { tableNumber, tableId } = useAppSelector((state) => state.tables);
   const { userInfo } = useAppSelector((state) => state.users);
   const { plan, viewbox } = restaurant;
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getOneRestaurant(Number(id)));
     dispatch(getUserInfo());
   }, [dispatch, id]);
@@ -45,6 +52,11 @@ export const Booking: React.FC = () => {
     const token = localStorage.getItem("token");
 
     if (token === null) return navigate("/registration");
+    else if (date === "" || time === "") {
+      return toast.error("Выберите время и дату.");
+    } else if (tableNumber === 0) {
+      return toast.error("Выберите стол для бронирования.");
+    }
 
     dispatch(reserveTable(updatedData));
   };
@@ -55,10 +67,6 @@ export const Booking: React.FC = () => {
     formData.append("table_id", tableId.toString());
     formData.append("action", "transfer");
 
-    if (tableId === 0) {
-      toast.error("Выберите стол для бронирования.");
-    }
-
     dispatch(addCartToTable(formData as ICartActions));
   };
 
@@ -68,10 +76,19 @@ export const Booking: React.FC = () => {
     <div className={styles.booking}>
       <div className="container">
         <div className={styles.booking__inner}>
-          <div className={styles.booking__title}>
-            <h1>Выбери столик и забронируй!</h1>
-            <p>Кликни на желаемый столик</p>
-          </div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            className={styles.booking__title}
+          >
+            <motion.h1 variants={textAnimation} custom={1}>
+              Выбери столик и забронируй!
+            </motion.h1>
+            <motion.p variants={textAnimation} custom={2}>
+              Выберите интересующий вас столик на плане ресторана, затем
+              продолжите, чтобы забронировать его.
+            </motion.p>
+          </motion.div>
 
           <div className={styles.booking__block}>
             <div className={styles.booking__image}>
@@ -95,6 +112,7 @@ export const Booking: React.FC = () => {
                 <label htmlFor="time">
                   <p>Время:</p>
                   <CInput
+                    style={{ border: errors.time ? "1px solid red" : "" }}
                     id="time"
                     type="time"
                     placeholder="Желаемое время"

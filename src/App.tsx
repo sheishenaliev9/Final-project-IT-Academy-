@@ -12,9 +12,8 @@ import {
   Restaurants,
 } from "./pages";
 import { PrivateRoute } from "./components";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import "./App.scss";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App: React.FC = () => {
   return (
@@ -35,7 +34,14 @@ const App: React.FC = () => {
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/booking/:id" element={<Booking />} />
+          <Route
+            path="/booking/:id"
+            element={
+              <PrivateRoute>
+                <Booking />
+              </PrivateRoute>
+            }
+          />
         </Route>
       </Routes>
 

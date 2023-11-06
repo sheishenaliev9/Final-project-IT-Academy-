@@ -49,9 +49,9 @@ export const Header: React.FC = () => {
 
         <div className={styles.header__profile}>
           <Link to="/cart">
-            <BiCartAlt />
+            <BiCartAlt size={26} />
           </Link>
-          <FaUserAlt onClick={handleProfileClick} />
+          <FaUserAlt size={23} onClick={handleProfileClick} />
         </div>
       </div>
     </header>
