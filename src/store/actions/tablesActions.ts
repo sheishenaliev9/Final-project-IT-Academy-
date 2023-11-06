@@ -37,13 +37,15 @@ export const reserveTable = createAsyncThunk(
           },
         }
       );
-      console.log(values);
+      console.log(data);
       if (!data.is_reserved) {
         return toast.error("Вы не можете забронировать больше 2 столов.");
       } else {
         toast.success(`Вы забронировали столик номер ${values.number}`);
         dispatch(getTables());
       }
+
+      return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

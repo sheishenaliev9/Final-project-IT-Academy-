@@ -8,6 +8,5 @@ export const textAnimation = {
     x: 0,
     opacity: 1,
     transition: { delay: custom * 0.2 },
-    duration: 0.5,
   }),
 };

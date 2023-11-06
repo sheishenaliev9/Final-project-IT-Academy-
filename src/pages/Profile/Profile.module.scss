@@ -36,6 +36,17 @@
           flex-direction: column;
           gap: 5px;
 
+          .profile__info__code {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            span {
+              font-size: 16px;
+              color: #4a4e69;
+            }
+          }
+
           div {
             display: flex;
             align-items: center;
@@ -44,20 +55,19 @@
 
           p {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 20px;
           }
 
           input {
             width: 50%;
             border: none;
-            border-bottom: 1px solid #32b768;
             outline: none;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 20px;
             background-color: #f3f3f3;
 
             &:first-child {
-              font-size: 20px;
+              font-size: 24px;
               color: black;
             }
 
@@ -74,22 +84,22 @@
           align-items: center;
           gap: 15px;
 
-          .actions__logOut {
+          button {
             width: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            transition: .3s;
+            gap: 7px;
+            font-size: 16px;
 
-            background: none;
-            border: none;
-            outline: none;
-            color: red;
-            cursor: pointer;
+            &:first-child:hover {
+              color: #32b768;
+            }
 
-            padding: 10px 12px;
-            font-weight: 700;
-            font-size: 18px;
+            &:last-child:hover {
+              color: red;
+            }
 
             svg {
               font-size: 22px;
@@ -111,6 +121,29 @@
         box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
         h3 {
           text-align: left;
+        }
+
+        .profile__order__list {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .profile__order__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3 {
+              color: #32b768;
+            }
+
+            .profile__order__item__actions {
+              button {
+                color: red;
+                font-size: 18px;
+              }
+            }
+          }
         }
       }
     }

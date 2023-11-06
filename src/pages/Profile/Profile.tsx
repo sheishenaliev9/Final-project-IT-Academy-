@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RxAvatar } from "react-icons/rx";
-import { editPerson, getUserInfo } from "../../store";
-import { CButton, Loader } from "../../components";
+import {
+  editPerson,
+  getOneRestaurant,
+  getTables,
+  getUserInfo,
+  setReservedTables,
+} from "../../store";
+import { Loader } from "../../components";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { IPersonType } from "../../types/index.type";
+import { IPersonType, ITableType } from "../../types/index.type";
 import { HiOutlineLogout, HiMail } from "react-icons/hi";
-import { BsTelephoneFill } from "react-icons/bs";
+import { BsCheck, BsFillKeyFill, BsTelephoneFill } from "react-icons/bs";
+import { BiEditAlt } from "react-icons/bi";
+// import { IoIosRemoveCircle } from "react-icons/io";
 import styles from "./Profile.module.scss";
 
-export const Profile: React.FC = () => {
+const Profile: React.FC = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm<IPersonType>();
-  const { userInfo } = useAppSelector((state) => state.users);
-  const { name, number, photo, email, id, user } = userInfo;
+  const { userInfo, tables } = useAppSelector((state) => ({
+    userInfo: state.users.userInfo,
+    tables: state.tables.reservedTables,
+  }));
+
+  const { name, number, photo, email, id, user, tg_code } = userInfo;
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -33,6 +45,9 @@ export const Profile: React.FC = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       await dispatch(getUserInfo());
+      await dispatch(getTables());
+
+      dispatch(setReservedTables());
     };
 
     setValue("name", name);
@@ -41,9 +56,7 @@ export const Profile: React.FC = () => {
     fetchUserInfo();
   }, [dispatch, name, email, number, setValue]);
 
-  if (!name || !number) {
-    return <Loader />;
-  }
+  if (!name || !number || !tables) return <Loader />;
 
   return (
     <div className={styles.profile}>
@@ -83,29 +96,43 @@ export const Profile: React.FC = () => {
                     {...register("number")}
                   />
                 </div>
+
+                <p className={styles.profile__info__code}>
+                  <BsFillKeyFill />
+                  <span>{tg_code ? tg_code : "похоже вам не выдали код"}</span>
+                </p>
               </div>
 
               <div className={styles.profile__actions}>
                 {isDisabled ? (
-                  <CButton onClick={() => setIsDisabled(!isDisabled)}>
-                    Редактировать
-                  </CButton>
+                  <button onClick={() => setIsDisabled(!isDisabled)}>
+                    Редактировать <BiEditAlt />
+                  </button>
                 ) : (
-                  <CButton onClick={handleSubmit(handleChangeData)}>
-                    Сохранить
-                  </CButton>
+                  <button onClick={handleSubmit(handleChangeData)}>
+                    Сохранить <BsCheck />
+                  </button>
                 )}
-                <button
-                  className={styles.actions__logOut}
-                  onClick={handleLogOut}
-                >
+                <button onClick={handleLogOut}>
                   Выйти <HiOutlineLogout />
                 </button>
               </div>
             </div>
             <div className={styles.profile__order}>
               <h2>Ваш заказ</h2>
-              <h3>На данный момент нет брони</h3>
+              <div className={styles.profile__order__list}>
+                {tables ? (
+                  tables.length > 0 ? (
+                    tables.map((table) => (
+                      <UserTable key={table.id} table={table} />
+                    ))
+                  ) : (
+                    <h3>В данный момент нет брони</h3>
+                  )
+                ) : (
+                  <Loader />
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -113,3 +140,62 @@ export const Profile: React.FC = () => {
     </div>
   );
 };
+
+interface IUserTable {
+  table: ITableType;
+}
+
+const UserTable: React.FC<IUserTable> = ({ table }) => {
+  const dispatch = useAppDispatch();
+  const { restaurant } = useAppSelector((state) => state.restaurants);
+  const { name, address } = restaurant;
+  const { number, reserved_time } = table;
+
+  const dateTimeString = `${reserved_time}`;
+  const dateTime = new Date(dateTimeString);
+
+  const date = dateTime.toISOString().split("T")[0];
+
+  const hours = dateTime.getHours().toString();
+  const minutes = dateTime.getMinutes().toString();
+
+  const time = `${hours}:${minutes}`;
+
+  useEffect(() => {
+    dispatch(getOneRestaurant(table.restaurant));
+  }, [dispatch, table.restaurant]);
+
+  return (
+    <div className={styles.profile__order__item}>
+      <div>
+        <h3>{name}</h3>
+        <p>
+          <b>Адресс: </b>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              address
+            )}`}
+            target="blank"
+          >
+            {address}
+          </a>
+        </p>
+        <p>
+          <b>Номер стола:</b> {number}
+        </p>
+        <p>
+          <b>Дата:</b> {date}
+        </p>
+        <p>
+          <b>Время:</b> {time}
+        </p>
+      </div>
+
+      <div className={styles.profile__order__item__actions}>
+        <button>отменить</button>
+      </div>
+    </div>
+  );
+};
+
+export { Profile, UserTable };

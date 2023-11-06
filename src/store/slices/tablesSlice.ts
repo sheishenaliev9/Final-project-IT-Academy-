@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getTables } from "..";
+import { getTables } from "../actions";
 import { ITableType } from "../../types/index.type";
 
 interface ITableState {
   tables: ITableType[];
+  reservedTables: ITableType[];
   tableNumber: number;
   tableId: number;
   selectedTableId: number;
@@ -11,6 +12,7 @@ interface ITableState {
 
 const initialState: ITableState = {
   tables: [],
+  reservedTables: [],
   tableNumber: 0,
   tableId: 0,
   selectedTableId: 0,
@@ -26,18 +28,28 @@ export const tablesSlice = createSlice({
     setTableNumber: (state, { payload }: PayloadAction<number>) => {
       state.tableNumber = payload;
     },
-    setSelectedTableId: (state, action) => {
-      state.selectedTableId = action.payload;
+    setSelectedTableId: (state, { payload }) => {
+      state.selectedTableId = payload;
+    },
+    setReservedTables: (state) => {
+      state.reservedTables = state.tables.filter(
+        (table) => table.is_reserved === true
+      );
     },
   },
   extraReducers: {
     [getTables.fulfilled.type]: (
       state,
-      action: PayloadAction<ITableType[]>
+      { payload }: PayloadAction<ITableType[]>
     ) => {
-      state.tables = action.payload;
+      state.tables = payload;
     },
   },
 });
 
-export const { setTableId, setTableNumber, setSelectedTableId } = tablesSlice.actions;
+export const {
+  setTableId,
+  setTableNumber,
+  setSelectedTableId,
+  setReservedTables,
+} = tablesSlice.actions;
