@@ -1,0 +1,51 @@
+.telegram_bot {
+  margin-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  .telegram_bot_icon {
+    svg {
+      font-size: 230px;
+      color: #4a4e69;
+    }
+  }
+  .telegram_bot_title {
+    width: 40%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  h2 {
+    color: #32b768;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4a4e69;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #32b768;
+    font-weight: 700;
+    transition: 0.3s;
+
+    svg {
+      transition: 0.3s;
+      font-size: 20px;
+    }
+
+    &:hover {
+      svg {
+        transform: translateX(0.6em);
+      }
+    }
+  }
+}

@@ -6,8 +6,9 @@ import preorderImg from "../../assets/preorder.svg";
 import timeImg from "../../assets/timeImg.svg";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { textAnimation } from "../../animation";
+import { textAnimation, textAnimationFromLeft } from "../../animation";
 import styles from "./Home.module.scss";
+import { TelegramBot } from "../../components";
 
 const imageBlocks = [
   { src: foodImg, alt: "food-image" },
@@ -63,9 +64,17 @@ export const Home: React.FC = () => {
               </Link>
             </div>
             <div className={styles.home__image}>
-              <img src={foodImg} alt="food-image" />
+              <motion.img
+                variants={textAnimationFromLeft}
+                custom={2}
+                src={foodImg}
+                alt="food-image"
+              />
             </div>
           </div>
+
+          <TelegramBot />
+
           <div className={styles.home__about}>
             <HomeBlock
               title="Закажи еду заранее"

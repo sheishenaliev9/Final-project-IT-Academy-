@@ -15,11 +15,11 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getCart.fulfilled.type]: (state, action: PayloadAction<ICartType[]>) => {
-      state.cart = action.payload;
+    [getCart.fulfilled.type]: (state, { payload }: PayloadAction<ICartType[]>) => {
+      state.cart = payload;
     },
-    [addToCart.fulfilled.type]: (state, action: PayloadAction<ICartType[]>) => {
-      state.cart = action.payload;
+    [addToCart.fulfilled.type]: (state, { payload }: PayloadAction<ICartType[]>) => {
+      state.cart = payload;
     },
   },
 });

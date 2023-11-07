@@ -21,7 +21,7 @@ export const TableList: React.FC<ITableListProps> = ({ id, viewbox }) => {
     dispatch(getTables());
   }, [dispatch]);
 
-  const filteredTables = tables.filter((table) => table.restaurant === id);
+  const filteredTables = tables.filter((table: { restaurant: number; }) => table.restaurant === id);
 
   return (
     <div>
@@ -58,6 +58,7 @@ export const Table: React.FC<ITableProps> = ({ table, isSelected }) => {
       style={{
         fill: table.is_reserved ? "red" : "green",
         opacity: isSelected ? 0.6 : 1,
+        pointerEvents: table.is_reserved ? "none" : "auto",
       }}
       onClick={setTableData}
       d={table.d}

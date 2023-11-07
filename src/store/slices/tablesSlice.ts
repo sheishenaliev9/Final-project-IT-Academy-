@@ -34,7 +34,8 @@ export const tablesSlice = createSlice({
     setReservedTables: (state) => {
       state.reservedTables = state.tables.filter(
         (table) => table.is_reserved === true
-      );
+        );
+        
     },
   },
   extraReducers: {

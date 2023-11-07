@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { clearCart, deleteFromCart, getCart } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { CartDishes, CartDrinks, Loader } from "../../components";
+import { CartDishes, CartDrinks, Loader, TelegramBot } from "../../components";
 import { ICartActions } from "../../types/index.type";
 import styles from "./Cart.module.scss";
+import { MdNoDrinks, MdNoFood } from "react-icons/md";
 
 export const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ export const Cart: React.FC = () => {
               </div>
               <div className={styles.cart__list__items}>
                 <div>
-                  <h2>Блюда</h2>
+                  <h2>Блюда:</h2>
                   {cart.map((item) =>
                     item.dishes &&
                     Array.isArray(item.dishes) &&
@@ -58,12 +59,15 @@ export const Cart: React.FC = () => {
                         />
                       ))
                     ) : (
-                      <h2>В корзине нет блюд</h2>
+                      <div className={styles.noFood}>
+                        <h2>В корзине нет блюд</h2>
+                        <MdNoFood />
+                      </div>
                     )
                   )}
                 </div>
                 <div>
-                  <h2>Напитки</h2>
+                  <h2>Напитки:</h2>
                   {cart.map((item) =>
                     item.drinks &&
                     Array.isArray(item.drinks) &&
@@ -76,7 +80,10 @@ export const Cart: React.FC = () => {
                         />
                       ))
                     ) : (
-                      <h2>В корзине нет напитков</h2>
+                      <div className={styles.noFood}>
+                        <h2>В корзине нет напитков</h2>
+                        <MdNoDrinks />
+                      </div>
                     )
                   )}
                 </div>
@@ -85,10 +92,17 @@ export const Cart: React.FC = () => {
 
             <div className={styles.cart__info__actions}>
               <h2>Оформление заказа:</h2>
+              <h2>
+                Итого:{" "}
+                {cart.length > 0
+                  ? `${cart
+                      .map((item) => item.total_price)
+                      .reduce((acc, val) => acc + val, 0)} с`
+                  : "0 с"}
+              </h2>
               <div className={styles.cart__actions__btns}>
                 <button onClick={clearCartFunc}>Очистить корзину</button>
               </div>
-              <h2>Итого: {cart.map((item) => item.total_price)} с</h2>
             </div>
           </div>
         </div>

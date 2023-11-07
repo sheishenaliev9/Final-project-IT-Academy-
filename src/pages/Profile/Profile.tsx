@@ -58,7 +58,7 @@ const Profile: React.FC = () => {
     fetchUserInfo();
   }, [dispatch, name, email, number, setValue]);
 
-  if (!name || !number || !tables) return <Loader />;
+  if (!userInfo || !name || !number || !tables) return <Loader />;
 
   return (
     <div className={styles.profile}>
@@ -121,7 +121,7 @@ const Profile: React.FC = () => {
               </div>
             </div>
             <div className={styles.profile__order}>
-              <h2>Ваш заказ</h2>
+              <h2>Зарезервированные столы:</h2>
               <div className={styles.profile__order__list}>
                 {tables ? (
                   tables.length > 0 ? (

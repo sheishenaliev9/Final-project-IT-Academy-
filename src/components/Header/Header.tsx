@@ -1,3 +1,4 @@
+// Обновленный Header компонент
 import { Link, useNavigate } from "react-router-dom";
 import { TbToolsKitchen2 } from "react-icons/tb";
 import { FaUserAlt } from "react-icons/fa";
@@ -14,6 +15,14 @@ export const Header: React.FC = () => {
 
     if (token) return navigate("/profile");
     else return navigate("/registration");
+  };
+
+  const handleContactsClick = () => {
+    // Используем JavaScript для прокрутки к футеру
+    const footer = document.getElementById("footer");
+    if (footer) {
+      footer.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -44,7 +53,9 @@ export const Header: React.FC = () => {
         <nav className={styles.header__nav}>
           <Link to="/">Главная</Link>
           <Link to="/restaurants">Рестораны</Link>
-          <Link to="/contacts">Контакты</Link>
+          <button onClick={handleContactsClick}>
+            <a>Контакты</a>
+          </button>
         </nav>
 
         <div className={styles.header__profile}>

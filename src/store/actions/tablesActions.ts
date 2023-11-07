@@ -72,8 +72,8 @@ export const cancelReservedTable = createAsyncThunk(
         }
       );
 
-      dispatch(setReservedTables());
       await dispatch(getTables());
+      dispatch(setReservedTables());
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

@@ -59,7 +59,7 @@
           }
 
           input {
-            width: 50%;
+            // width: 50%;
             border: none;
             outline: none;
             font-weight: 700;
@@ -89,7 +89,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: .3s;
+            transition: 0.3s;
             gap: 7px;
             font-size: 16px;
 
@@ -119,9 +119,6 @@
         background: #f3f3f3;
         border-radius: 15px;
         box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
-        h3 {
-          text-align: left;
-        }
 
         .profile__order__list {
           display: flex;

@@ -7,13 +7,11 @@ import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { textAnimation } from "../../animation";
 import styles from "./Restaurants.module.scss";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export const Restaurants: React.FC = () => {
   const dispatch = useAppDispatch();
   const { restaurants } = useAppSelector((state) => state.restaurants);
-
-  console.log(restaurants);
 
   useEffect(() => {
     dispatch(getRestaurants());
@@ -25,18 +23,23 @@ export const Restaurants: React.FC = () => {
     <div className={styles.restaurants}>
       <div className="container">
         <div className={styles.restaurants__inner}>
-          <motion.div className={styles.restaurants__title} initial="hidden" whileInView="visible">
-            <motion.h1 variants={textAnimation} custom={1}>Все рестораны</motion.h1>
-            <motion.p variants={textAnimation} custom={2}>Выбери ресторан и забронируй столик!</motion.p>
+          <motion.div
+            className={styles.restaurants__title}
+            initial="hidden"
+            whileInView="visible"
+          >
+            <motion.h1 variants={textAnimation} custom={1}>
+              Все рестораны
+            </motion.h1>
+            <motion.p variants={textAnimation} custom={2}>
+              Выбери ресторан и забронируй столик!
+            </motion.p>
           </motion.div>
           <div className={styles.restaurants__list}>
-            {restaurants ? (
+            {restaurants &&
               restaurants.map((restaurant) => (
                 <RestaurantItem key={restaurant.id} item={restaurant} />
-              ))
-            ) : (
-              <h1>Error</h1>
-            )}
+              ))}
           </div>
         </div>
       </div>
