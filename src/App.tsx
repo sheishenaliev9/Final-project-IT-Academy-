@@ -7,6 +7,7 @@ import {
   Home,
   Login,
   OneRestaurant,
+  Payment,
   Profile,
   Register,
   Restaurants,
@@ -34,6 +35,7 @@ const App: React.FC = () => {
           <Route path="/registration" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/payment" element={<Payment />} />
           <Route
             path="/booking/:id"
             element={
