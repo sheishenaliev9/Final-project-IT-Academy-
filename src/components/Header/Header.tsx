@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
       >
         <div className="logo">
           <Link to="/">
-            <TbToolsKitchen2 />
+            <TbToolsKitchen2 size={32} />
           </Link>
         </div>
 

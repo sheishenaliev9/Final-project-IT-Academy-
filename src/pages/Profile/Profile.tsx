@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { RxAvatar } from "react-icons/rx";
 import {
+  cancelReservedTable,
   editPerson,
   getOneRestaurant,
   getTables,
@@ -15,8 +16,9 @@ import { IPersonType, ITableType } from "../../types/index.type";
 import { HiOutlineLogout, HiMail } from "react-icons/hi";
 import { BsCheck, BsFillKeyFill, BsTelephoneFill } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
-// import { IoIosRemoveCircle } from "react-icons/io";
+import { toast } from "react-toastify";
 import styles from "./Profile.module.scss";
+
 
 const Profile: React.FC = () => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -148,8 +150,9 @@ interface IUserTable {
 const UserTable: React.FC<IUserTable> = ({ table }) => {
   const dispatch = useAppDispatch();
   const { restaurant } = useAppSelector((state) => state.restaurants);
+
   const { name, address } = restaurant;
-  const { number, reserved_time } = table;
+  const { number, reserved_time, id } = table;
 
   const dateTimeString = `${reserved_time}`;
   const dateTime = new Date(dateTimeString);
@@ -160,6 +163,22 @@ const UserTable: React.FC<IUserTable> = ({ table }) => {
   const minutes = dateTime.getMinutes().toString();
 
   const time = `${hours}:${minutes}`;
+
+  const handleCancelTable = () => {
+    const updatedData: ITableType = {
+      id,
+      reserved_by: null,
+      reserved_time: null,
+      is_reserved: false,
+      number: number,
+      restaurant: restaurant.id,
+    };
+
+    if (updatedData) {
+      toast.success(`стол ${updatedData.number} отменен в ресторане ${name}.`)
+      dispatch(cancelReservedTable(updatedData));
+    }
+  };
 
   useEffect(() => {
     dispatch(getOneRestaurant(table.restaurant));
@@ -192,7 +211,7 @@ const UserTable: React.FC<IUserTable> = ({ table }) => {
       </div>
 
       <div className={styles.profile__order__item__actions}>
-        <button>отменить</button>
+        <button onClick={handleCancelTable}>отменить</button>
       </div>
     </div>
   );
