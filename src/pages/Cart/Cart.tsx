@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { clearCart, deleteFromCart, getCart } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { CartDishes, CartDrinks, Loader, TelegramBot } from "../../components";
+import { CartDishes, CartDrinks, Loader } from "../../components";
 import { ICartActions } from "../../types/index.type";
 import styles from "./Cart.module.scss";
 import { MdNoDrinks, MdNoFood } from "react-icons/md";

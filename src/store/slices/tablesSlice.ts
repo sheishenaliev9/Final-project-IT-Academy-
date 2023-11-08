@@ -31,9 +31,9 @@ export const tablesSlice = createSlice({
     setSelectedTableId: (state, { payload }) => {
       state.selectedTableId = payload;
     },
-    setReservedTables: (state) => {
+    setReservedTables: (state, { payload }) => {
       state.reservedTables = state.tables.filter(
-        (table) => table.is_reserved === true
+        (table) => table.reserved_by === payload
         );
         
     },

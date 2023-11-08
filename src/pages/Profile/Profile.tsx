@@ -17,8 +17,8 @@ import { HiOutlineLogout, HiMail } from "react-icons/hi";
 import { BsCheck, BsFillKeyFill, BsTelephoneFill } from "react-icons/bs";
 import { BiEditAlt } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 import styles from "./Profile.module.scss";
-
 
 const Profile: React.FC = () => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -49,14 +49,14 @@ const Profile: React.FC = () => {
       await dispatch(getUserInfo());
       await dispatch(getTables());
 
-      dispatch(setReservedTables());
+      dispatch(setReservedTables(id));
     };
 
     setValue("name", name);
     setValue("email", email);
     setValue("number", number);
     fetchUserInfo();
-  }, [dispatch, name, email, number, setValue]);
+  }, [dispatch, name, email, number, setValue, id]);
 
   if (!userInfo || !name || !number || !tables) return <Loader />;
 
@@ -67,7 +67,11 @@ const Profile: React.FC = () => {
           <div className={styles.profile__inner__title}>
             <h1>Профиль</h1>
           </div>
-          <div className={styles.profile__block}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            className={styles.profile__block}
+          >
             <div className={styles.profile__user}>
               <div className={styles.profile__avatar}>
                 {photo ? <img src={photo} alt="" /> : <RxAvatar size={106} />}
@@ -93,7 +97,7 @@ const Profile: React.FC = () => {
                   <BsTelephoneFill />
                   <input
                     type="text"
-                    defaultValue={number}
+                    defaultValue={number ? number : "###-###-###"}
                     disabled={isDisabled}
                     {...register("number")}
                   />
@@ -136,7 +140,7 @@ const Profile: React.FC = () => {
                 )}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
@@ -175,7 +179,7 @@ const UserTable: React.FC<IUserTable> = ({ table }) => {
     };
 
     if (updatedData) {
-      toast.success(`стол ${updatedData.number} отменен в ресторане ${name}.`)
+      toast.success(`стол ${updatedData.number} отменен в ресторане ${name}.`);
       dispatch(cancelReservedTable(updatedData));
     }
   };

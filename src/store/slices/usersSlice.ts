@@ -4,10 +4,12 @@ import { editPerson, getUserInfo, registerUser } from "../actions";
 
 interface IUserState {
   userInfo: IPersonType;
+  errorMessage: string
 }
 
 const initialState: IUserState = {
   userInfo: {} as IPersonType,
+  errorMessage: "",
 };
 
 export const usersSlice = createSlice({
@@ -20,6 +22,9 @@ export const usersSlice = createSlice({
       action: PayloadAction<IPersonType>
     ) => {
       state.userInfo = action.payload;
+    },
+    [registerUser.rejected.type]: (state, { payload }: PayloadAction<string>) => {
+      state.errorMessage = payload;
     },
     [getUserInfo.fulfilled.type]: (
       state,

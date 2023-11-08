@@ -26,11 +26,21 @@
       gap: 30px;
 
       .restaurant {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         background: #f3f3f3;
-        padding: 20px;
-        border: 2px solid #4a4e69;
+        padding: 20px 30px;
         border-radius: 15px;
         box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+
+        &:hover {
+          .restaurant_actions {
+            svg {
+              transform: translateX(0.6em);
+            }
+          }
+        }
 
         .restaurant__info {
           display: flex;
@@ -46,6 +56,10 @@
             flex-direction: column;
             gap: 10px;
 
+            h3 {
+              color: #32b768;
+            }
+
             p {
               font-weight: 700;
 
@@ -53,14 +67,14 @@
                 font-weight: 400;
               }
             }
+          }
+        }
 
-            a {
-              display: flex;
-              align-items: center;
-              gap: 5px;
-              color: #32b768;
-              font-weight: 700;
-            }
+        .restaurant_actions {
+          svg {
+            transition: .3s;
+            color: #32b768;
+            font-size: 30px;
           }
         }
       }

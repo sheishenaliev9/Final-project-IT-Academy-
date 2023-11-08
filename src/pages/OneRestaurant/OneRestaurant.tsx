@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useNavigate, useParams } from "react-router";
 import { addToCart, getOneRestaurant } from "../../store";
-import { Loader } from "../../components";
-import styles from "./OneRestaurant.module.scss";
+import { CButton, Loader } from "../../components";
 import { ICartActions, IMenuType } from "../../types/index.type";
 import { BiCartAdd } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import styles from "./OneRestaurant.module.scss";
 
 export const OneRestaurant: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +42,6 @@ export const OneRestaurant: React.FC = () => {
 
   if (!restaurant || !photo_1 || !dishes || !drinks) return <Loader />;
 
-
   return (
     <div className={styles.restaurant}>
       <div className="container">
@@ -55,10 +54,12 @@ export const OneRestaurant: React.FC = () => {
 
             <div className={styles.info__title}>
               <h2>{name}</h2>
-              <p>{description}</p>
-              <p>{address}</p>
-              <p>{tables}</p>
-              <Link to={`/booking/${id}`}>Забронировать стол</Link>
+              <p>Описание: {description}</p>
+              <p>Адресс: {address}</p>
+              <p>Столы: {tables}</p>
+              <Link to={`/booking/${id}`}>
+                <CButton>Забронировать стол</CButton>
+              </Link>
             </div>
           </div>
 

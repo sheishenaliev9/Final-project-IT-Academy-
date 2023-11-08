@@ -15,6 +15,13 @@
       }
 
       .info__title {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        p {
+          color: #4a4e69;
+          font-weight: 700;
+        }
         h2 {
           font-size: 42px;
           color: #32b768;
@@ -95,7 +102,7 @@
               height: 120px;
               gap: 7px;
               h3 {
-                transition: .3s;
+                transition: 0.3s;
                 color: #4a4e69;
                 font-weight: 700;
               }

@@ -36,10 +36,13 @@ export const Restaurants: React.FC = () => {
             </motion.p>
           </motion.div>
           <div className={styles.restaurants__list}>
-            {restaurants &&
+            {restaurants ? (
               restaurants.map((restaurant) => (
                 <RestaurantItem key={restaurant.id} item={restaurant} />
-              ))}
+              ))
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
       </div>
@@ -52,8 +55,10 @@ interface IRestaurantItemProps {
 }
 
 export const RestaurantItem: React.FC<IRestaurantItemProps> = ({ item }) => {
-  const { name, photo_1, description, address, tables, id } = item;
+  const { name, photo_1, description, address, tables, id, available_tables } =
+    item;
   return (
+    <Link to={`/restaurants/${id}`}> 
     <div className={styles.restaurant}>
       <div className={styles.restaurant__info}>
         <div className={styles.info__image}>
@@ -70,11 +75,17 @@ export const RestaurantItem: React.FC<IRestaurantItemProps> = ({ item }) => {
           <p>
             Кол-во столов: <span>{tables}</span>
           </p>
-          <Link to={`/restaurants/${id}`}>
-            Перейти <AiOutlineArrowRight />
-          </Link>
+          <p>
+            Свободные столы: <span>{available_tables}</span>
+          </p>
         </div>
       </div>
+      <div className={styles.restaurant_actions}>
+        <Link to={`/restaurants/${id}`}>
+          <AiOutlineArrowRight />
+        </Link>
+      </div>
     </div>
+    </Link>
   );
 };

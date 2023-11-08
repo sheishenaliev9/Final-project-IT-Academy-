@@ -6,27 +6,30 @@ import { useAppDispatch, useAppSelector } from "../../hooks";
 import { registerUser } from "../../store";
 import { IUserType } from "../../types/index.type";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from "react-toastify";
 import styles from "./Register.module.scss";
 
 export const Register: React.FC = () => {
   const [eye, setEye] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { userInfo } = useAppSelector((state) => state.users);
+  const { errorMessage } = useAppSelector((state) => state.users);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IUserType>();
 
+  console.log(errorMessage);
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      // navigate("/");
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
     }
-  }, [userInfo]);
+  }, [navigate]);
 
   const onSubmit = async (values: IUserType) => {
     try {
       const { payload } = await dispatch(registerUser(values));
       payload && navigate("/login");
     } catch (error) {
-      console.error("Ошибка регистрации", error);
+      toast.error("Ошибка регистрации");
     }
   };
 
@@ -50,17 +53,10 @@ export const Register: React.FC = () => {
             id="email"
             type="email"
             placeholder="Enter your email"
-            {...register("email", { required: true })}
-          />
-        </label>
-
-        <label htmlFor="number">
-          <p>Phone</p>
-          <CInput
-            id="number"
-            type="number"
-            placeholder="Enter your phone"
-            {...register("number", { required: true })}
+            {...register("email", {
+              required: true,
+              pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i,
+            })}
           />
         </label>
 
@@ -71,7 +67,7 @@ export const Register: React.FC = () => {
               id="password"
               type={eye ? "text" : "password"}
               placeholder="Enter your password"
-              {...register("password")}
+              {...register("password", { minLength: 8 })}
             />
             {eye ? (
               <AiOutlineEye onClick={() => setEye(!eye)} />
