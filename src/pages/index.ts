@@ -6,4 +6,3 @@ export * from './OneRestaurant';
 export * from './Restaurants';
 export * from './Cart';
 export * from './Booking';
-export * from './Payment';

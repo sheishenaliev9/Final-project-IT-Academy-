@@ -58,7 +58,7 @@ const Profile: React.FC = () => {
     fetchUserInfo();
   }, [dispatch, name, email, number, setValue, id]);
 
-  if (!userInfo || !name || !number || !tables) return <Loader />;
+  if (!userInfo) return <Loader />;
 
   return (
     <div className={styles.profile}>

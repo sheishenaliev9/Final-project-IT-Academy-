@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IReserveTableType, ITableType } from "../../types/index.type";
 import { toast } from "react-toastify";
-import { setReservedTables } from "..";
 
 export const getTables = createAsyncThunk("getTables", async () => {
   try {
@@ -14,7 +13,6 @@ export const getTables = createAsyncThunk("getTables", async () => {
         },
       }
     );
-
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -58,6 +56,7 @@ export const reserveTable = createAsyncThunk(
   }
 );
 
+
 export const cancelReservedTable = createAsyncThunk(
   "cancelReservedTable",
   async (values: ITableType, { dispatch }) => {
@@ -72,8 +71,7 @@ export const cancelReservedTable = createAsyncThunk(
         }
       );
 
-      await dispatch(getTables());
-      dispatch(setReservedTables());
+      dispatch(getTables());
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data);

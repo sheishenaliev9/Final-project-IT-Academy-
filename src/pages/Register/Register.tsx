@@ -38,7 +38,7 @@ export const Register: React.FC = () => {
       <form className={styles.register__form} onSubmit={handleSubmit(onSubmit)}>
         <h2>Регистрация</h2>
         <label htmlFor="name">
-          <p>Name</p>
+          <p>Имя</p>
           <CInput
             id="name"
             type="text"
@@ -47,8 +47,18 @@ export const Register: React.FC = () => {
           />
         </label>
 
+        <label htmlFor="number">
+          <p>Телефон</p>
+          <CInput
+            id="name"
+            type="number"
+            placeholder="Enter your number"
+            {...register("number", { required: true })}
+          />
+        </label>
+
         <label htmlFor="email">
-          <p>Email</p>
+          <p>Почта</p>
           <CInput
             id="email"
             type="email"
@@ -62,7 +72,7 @@ export const Register: React.FC = () => {
 
         <div>
           <label htmlFor="password">
-            <p>Password</p>
+            <p>Пароль</p>
             <CInput
               id="password"
               type={eye ? "text" : "password"}

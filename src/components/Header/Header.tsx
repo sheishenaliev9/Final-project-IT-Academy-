@@ -18,7 +18,6 @@ export const Header: React.FC = () => {
   };
 
   const handleContactsClick = () => {
-    // Используем JavaScript для прокрутки к футеру
     const footer = document.getElementById("footer");
     if (footer) {
       footer.scrollIntoView({ behavior: "smooth" });

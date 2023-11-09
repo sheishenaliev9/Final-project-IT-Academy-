@@ -8,6 +8,7 @@ interface ITableState {
   tableNumber: number;
   tableId: number;
   selectedTableId: number;
+  isLoading: boolean;
 }
 
 const initialState: ITableState = {
@@ -16,6 +17,7 @@ const initialState: ITableState = {
   tableNumber: 0,
   tableId: 0,
   selectedTableId: 0,
+  isLoading: false,
 };
 
 export const tablesSlice = createSlice({
@@ -44,6 +46,9 @@ export const tablesSlice = createSlice({
       { payload }: PayloadAction<ITableType[]>
     ) => {
       state.tables = payload;
+    },
+    [getTables.pending.type]: (state) => {
+      state.isLoading = true
     },
   },
 });

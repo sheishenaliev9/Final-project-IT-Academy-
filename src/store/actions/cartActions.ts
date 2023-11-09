@@ -13,7 +13,6 @@ export const getCart = createAsyncThunk("getCart", async () => {
         },
       }
     );
-    console.log(data);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
