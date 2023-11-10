@@ -30,7 +30,7 @@ export const TelegramBot: React.FC = () => {
         </motion.p>
         <motion.a
           variants={textAnimationFromLeft}
-          custom={3}
+          custom={2}
           href="https://t.me/restaurant_for_final_bot"
           target="blank"
         >

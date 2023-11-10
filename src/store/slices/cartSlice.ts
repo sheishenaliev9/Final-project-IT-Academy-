@@ -10,6 +10,7 @@ const initialState: ICartState = {
   cart: [],
 };
 
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState,

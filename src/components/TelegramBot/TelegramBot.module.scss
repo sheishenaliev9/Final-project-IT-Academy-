@@ -37,15 +37,15 @@
     font-weight: 700;
     transition: 0.3s;
 
+    &:hover {
+      svg {
+        transform: translateX(0.6em);
+      }
     svg {
       transition: 0.3s;
       font-size: 20px;
     }
 
-    &:hover {
-      svg {
-        transform: translateX(0.6em);
-      }
     }
   }
 }

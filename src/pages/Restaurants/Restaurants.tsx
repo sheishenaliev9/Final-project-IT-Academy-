@@ -57,35 +57,36 @@ interface IRestaurantItemProps {
 export const RestaurantItem: React.FC<IRestaurantItemProps> = ({ item }) => {
   const { name, photo_1, description, address, tables, id, available_tables } =
     item;
+
   return (
-    <Link to={`/restaurants/${id}`}> 
-    <div className={styles.restaurant}>
-      <div className={styles.restaurant__info}>
-        <div className={styles.info__image}>
-          <img src={photo_1} alt={name} />
+    <Link to={`/restaurants/${id}`}>
+      <div className={styles.restaurant}>
+        <div className={styles.restaurant__info}>
+          <div className={styles.info__image}>
+            <img src={photo_1} alt={name} />
+          </div>
+          <div className={styles.info__title}>
+            <h3>{name}</h3>
+            <p>
+              Описание: <span>{description}</span>
+            </p>
+            <p>
+              Адресс: <span>{address}</span>
+            </p>
+            <p>
+              Кол-во столов: <span>{tables}</span>
+            </p>
+            <p>
+              Свободные столы: <span>{available_tables}</span>
+            </p>
+          </div>
         </div>
-        <div className={styles.info__title}>
-          <h3>{name}</h3>
-          <p>
-            Описание: <span>{description}</span>
-          </p>
-          <p>
-            Адресс: <span>{address}</span>
-          </p>
-          <p>
-            Кол-во столов: <span>{tables}</span>
-          </p>
-          <p>
-            Свободные столы: <span>{available_tables}</span>
-          </p>
+        <div className={styles.restaurant_actions}>
+          <Link to={`/restaurants/${id}`}>
+            <AiOutlineArrowRight />
+          </Link>
         </div>
       </div>
-      <div className={styles.restaurant_actions}>
-        <Link to={`/restaurants/${id}`}>
-          <AiOutlineArrowRight />
-        </Link>
-      </div>
-    </div>
     </Link>
   );
 };

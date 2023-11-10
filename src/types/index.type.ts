@@ -42,6 +42,26 @@ export interface IMenuType {
 // ========================
 // Restaurant
 
+export interface IReviewType {
+  restaurant: number;
+  title: string;
+  content: string;
+  person: number;
+  created_at: string;
+  positive_or_not: string;
+}
+
+
+export interface IReviewInfoType {
+  id: number
+  restaurant: number;
+  title: string;
+  content: string;
+  person: IPersonType;
+  created_at: string;
+  positive_or_not: string;
+}
+
 export interface IRestaurantType {
   id: number;
   available_tables: number;
@@ -50,6 +70,7 @@ export interface IRestaurantType {
   drinks: IMenuType[];
   name: string;
   description: string;
+  reviews: IReviewInfoType[];
   photo_1: string;
   average_bill: number;
   tables: number;
@@ -76,7 +97,7 @@ export interface ICartActions {
   dish_id?: string;
   drink_id?: string;
   action?: string;
-  table_id?: string
+  table_id?: string;
 }
 
 // ========================
@@ -98,7 +119,7 @@ export interface IReserveTableType {
   time: string;
   date: string;
   id?: number;
-  reserved_by?: number,
-  reserved_time?: string,
-  is_reserved?: boolean,
+  reserved_by?: number;
+  reserved_time?: string;
+  is_reserved?: boolean;
 }

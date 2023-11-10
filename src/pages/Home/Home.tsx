@@ -45,11 +45,15 @@ export const Home: React.FC = () => {
   }, []);
 
   return (
-    <motion.div initial="hidden" whileInView="visible" className={styles.home}>
+    <div className={styles.home}>
       <div className="container">
         <div className={styles.home__inner}>
           <div className={styles.home__title_block}>
-            <div className={styles.home__title}>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              className={styles.home__title}
+            >
               <motion.h1 custom={1} variants={textAnimation}>
                 Бронируйте стол и заказывайте онлайн
               </motion.h1>
@@ -62,15 +66,19 @@ export const Home: React.FC = () => {
                   Рестораны <AiOutlineArrowRight />
                 </button>
               </Link>
-            </div>
-            <div className={styles.home__image}>
+            </motion.div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              className={styles.home__image}
+            >
               <motion.img
                 variants={textAnimationFromLeft}
                 custom={2}
                 src={foodImg}
                 alt="food-image"
               />
-            </div>
+            </motion.div>
           </div>
 
           <TelegramBot />
@@ -97,6 +105,6 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };

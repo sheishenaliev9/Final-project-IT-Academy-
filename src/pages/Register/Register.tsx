@@ -28,7 +28,7 @@ export const Register: React.FC = () => {
     try {
       const { payload } = await dispatch(registerUser(values));
       payload && navigate("/login");
-    } catch (error) {
+  } catch (error) {
       toast.error("Ошибка регистрации");
     }
   };

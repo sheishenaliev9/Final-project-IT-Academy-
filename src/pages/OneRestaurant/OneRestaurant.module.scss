@@ -141,5 +141,124 @@
         }
       }
     }
+    .restaurant_reviews {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      margin-top: 150px;
+
+      .reviews__title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        h2 {
+          color: #32b768;
+          font-size: 42px;
+        }
+        p {
+          color: #4a4e69;
+          font-weight: 700;
+          font-size: 20px;
+        }
+      }
+
+      .reviews__list {
+        padding: 30px 20px;
+        height: 80vh;
+        overflow-y: scroll;
+        width: 80%;
+        border: 2px solid #4a4e69;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+
+        .review {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 10px;
+          p {
+            font-weight: 700;
+          }
+          .review__info {
+            .review__userInfo {
+              .review__name {
+                color: #32b768;
+              }
+            }
+
+            .review__body {
+              h3 {
+                font-size: 22px;
+              }
+              p {
+                font-size: 20px;
+              }
+            }
+
+            .review_created_at {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+          }
+
+          .review__actions {
+            button {
+              svg {
+                font-size: 35px;
+                color: #4a4e69;
+                transition: .3s;
+
+                &:hover {
+                  color: red;
+                }
+              }
+            }
+          }
+        }
+      }
+      .reviews_form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+        width: 60%;
+
+        h2 {
+          color: #32b768;
+          font-size: 32px;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          width: 100%;
+
+          textarea {
+            padding: 10px;
+            width: 100%;
+            height: 170px;
+            font-size: 18px;
+            resize: none;
+            border: 2px solid #ccc;
+            outline: none;
+            border-radius: 10px;
+            // box-shadow: 0 4px 4.25px 0.75px rgba(0, 0, 0, 0.13);
+            transition: 0.3s;
+
+            &:focus {
+              border: 2px solid #32b768;
+            }
+          }
+        }
+      }
+    }
   }
 }

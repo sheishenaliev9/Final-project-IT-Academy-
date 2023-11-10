@@ -37,7 +37,6 @@ export const addToCart = createAsyncThunk(
         }
       );
 
-      toast.success("Блюдо добавлено в корзину.");
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

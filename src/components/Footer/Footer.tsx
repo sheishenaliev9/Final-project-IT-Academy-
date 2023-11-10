@@ -54,7 +54,7 @@ export const Footer: React.FC = () => {
             <div className="logo">
               <TbToolsKitchen2 />
             </div>
-            <p>© 2023 Example, Inc.</p>
+            <p>© 2023 Resto, Inc.</p>
           </div>
         </div>
       </div>
