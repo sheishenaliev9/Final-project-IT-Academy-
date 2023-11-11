@@ -18,7 +18,6 @@ import {
 import { BiCartAdd } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import styles from "./OneRestaurant.module.scss";
 
@@ -64,9 +63,6 @@ export const OneRestaurant: React.FC = () => {
     if (token === null) return navigate("/registration");
 
     dispatch(addToCart(formData as ICartActions));
-    toast.success(
-      `${type === "dish" ? "блюдо" : "напиток"} добавлено в корзину.`
-    );
   };
 
   const addReviewFunc = (values: IReviewType) => {

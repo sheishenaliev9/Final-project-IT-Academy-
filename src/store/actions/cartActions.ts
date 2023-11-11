@@ -37,7 +37,11 @@ export const addToCart = createAsyncThunk(
         }
       );
 
-      console.log(data);
+      
+      if (data.message === "Restaurant and dish or drinks are not from the same restaurant") {
+        return toast.error("У вас в корзине уже имеется блюдо с другого ресторана.")
+      } 
+      toast.success("Блюдо в корзине!")
       return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

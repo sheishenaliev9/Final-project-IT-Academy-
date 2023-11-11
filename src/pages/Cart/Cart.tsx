@@ -103,9 +103,11 @@ export const Cart: React.FC = () => {
               </h2>
               <div className={styles.cart__actions__btns}>
                 <button onClick={clearCartFunc}>Очистить корзину</button>
-                <button>
-                  <Link to="/payment">Оплатить</Link>
-                </button>
+                {cart[0]?.total_price === 0 ? null : (
+                  <button>
+                    <Link to="/payment">Оплатить</Link>
+                  </button>
+                )}
               </div>
             </div>
           </div>
