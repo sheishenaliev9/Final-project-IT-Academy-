@@ -5,6 +5,7 @@ import { CartDishes, CartDrinks, Loader } from "../../components";
 import { ICartActions } from "../../types/index.type";
 import { MdNoDrinks, MdNoFood } from "react-icons/md";
 import styles from "./Cart.module.scss";
+import { Link } from "react-router-dom";
 
 export const Cart: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -102,6 +103,9 @@ export const Cart: React.FC = () => {
               </h2>
               <div className={styles.cart__actions__btns}>
                 <button onClick={clearCartFunc}>Очистить корзину</button>
+                <button>
+                  <Link to="/payment">Оплатить</Link>
+                </button>
               </div>
             </div>
           </div>

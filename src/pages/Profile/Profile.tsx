@@ -30,7 +30,7 @@ const Profile: React.FC = () => {
     tables: state.tables.reservedTables,
   }));
 
-  const { name, number, photo, email, id, user, tg_code } = userInfo;
+  const { name, number, email, id, user, tg_code } = userInfo;
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -74,7 +74,7 @@ const Profile: React.FC = () => {
           >
             <div className={styles.profile__user}>
               <div className={styles.profile__avatar}>
-                {photo ? <img src={photo} alt="" /> : <RxAvatar size={106} />}
+                <RxAvatar size={106} />
               </div>
 
               <div className={styles.profile__info}>
@@ -160,12 +160,12 @@ const UserTable: React.FC<IUserTable> = ({ table }) => {
 
   const dateTimeString = `${reserved_time}`;
   const dateTime = new Date(dateTimeString);
-
+  
   const date = dateTime.toISOString().split("T")[0];
-
-  const hours = dateTime.getHours().toString();
-  const minutes = dateTime.getMinutes().toString();
-
+  
+  const hours = (dateTime.getHours() < 10 ? '0' : '') + dateTime.getHours().toString();
+  const minutes = (dateTime.getMinutes() < 10 ? '0' : '') + dateTime.getMinutes().toString();
+  
   const time = `${hours}:${minutes}`;
 
   const handleCancelTable = () => {

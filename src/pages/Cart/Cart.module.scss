@@ -90,6 +90,18 @@
               background-color: #32b768;
               color: #fff;
             }
+
+            &:last-child {
+              a {
+                font-weight: 700;
+                color: #000;
+
+                &:hover {
+
+                  color: #fff;
+                }
+              }
+            }
           }
         }
       }
